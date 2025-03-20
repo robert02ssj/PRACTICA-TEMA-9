@@ -1,14 +1,26 @@
 package com.ssj;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 public class ConexionBD {
-    public static final String DB_URL = "jdbc:mysql://127.0.0.1:3307/PracticaProg";
-    public static final String DB_USER = "root";
-    public static final String DB_PASSWORD = "root";
+    public static String DB_URL;
+    public static String DB_USER;
+    public static String DB_PASSWORD;
 
     public static Connection getConection() {
+        try (FileInputStream fis = new FileInputStream("config.properties")) {
+            Properties properties = new Properties();
+            properties.load(fis);
+            DB_URL = properties.getProperty("DB_URL");
+            DB_USER = properties.getProperty("DB_USER");
+            DB_PASSWORD = properties.getProperty("DB_PASSWORD");
+        } catch (IOException e) {
+            System.out.println("Error al cargar el archivo de configuración: " + e.getMessage());
+        }
         Connection con = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
