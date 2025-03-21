@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" prefHeight="429.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.EventoController">
+   <children>
+      <MenuBar prefHeight="5.0" prefWidth="399.0">
+        <menus>
+          <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos" />
+          <Menu mnemonicParsing="false" text="Participantes" />
+          <Menu mnemonicParsing="false" text="Artistas" />
+        </menus>
+      </MenuBar>
+      <TableView fx:id="tableView" editable="true" prefHeight="408.0" prefWidth="594.0">
+        <columns>
+          <TableColumn fx:id="IdColumn" prefWidth="56.0" text="ID" />
+          <TableColumn fx:id="nombreColumn" prefWidth="137.60003662109375" text="Nombre" />          
+          <TableColumn fx:id="DescColumn" prefWidth="203.99998779296874" text="Descripcion" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

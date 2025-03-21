@@ -14,18 +14,16 @@ public class Evento {
     private StringProperty nombre;
     private StringProperty descripcion;
     private StringProperty lugar;
-    private java.sql.Date fecha;
     private java.sql.Date fecha_inicio;
     private java.sql.Date fecha_fin;
     private IntegerProperty id_categoria;
 
-    public Evento(int id, String nombre, String descripcion, String lugar, java.sql.Date fecha,
-            java.sql.Date fecha_inicio, java.sql.Date fecha_fin, int id_categoria) {
+    public Evento(int id, String nombre, String descripcion, String lugar, java.sql.Date fecha_inicio,
+            java.sql.Date fecha_fin, int id_categoria) {
         this.id = new SimpleIntegerProperty(id);
         this.nombre = new SimpleStringProperty(nombre);
         this.descripcion = new SimpleStringProperty(descripcion);
         this.lugar = new SimpleStringProperty(lugar);
-        this.fecha = fecha;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
         this.id_categoria = new SimpleIntegerProperty(id_categoria);
@@ -63,14 +61,6 @@ public class Evento {
         this.lugar.set(lugar);
     }
 
-    public java.sql.Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(java.sql.Date fecha) {
-        this.fecha = fecha;
-    }
-
     public java.sql.Date getFecha_inicio() {
         return fecha_inicio;
     }
@@ -102,7 +92,7 @@ public class Evento {
      * @param
      * @return el array de eventos o null si no hay eventos
      */
-    public void getAll(ObservableList<Evento> listaEventos) {
+    public static void getAll(ObservableList<Evento> listaEventos) {
 
         Connection con = ConexionBD.getConection();
         try {
@@ -110,7 +100,7 @@ public class Evento {
             ResultSet rs = st.executeQuery("SELECT * FROM EVENTO");
             while (rs.next()) {
                 listaEventos.add(new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
-                        rs.getString("lugar"), rs.getDate("fecha"), rs.getDate("fecha_inicio"), rs.getDate("fecha_fin"),
+                        rs.getString("lugar"), rs.getDate("fecha_inicio"), rs.getDate("fecha_fin"),
                         rs.getInt("id_categoria")));
             }
             con.close();
@@ -120,9 +110,9 @@ public class Evento {
     }
 
     /**
-     * Devolverá un entero con el id del evento que buscamos o null si no existe
+     * Devolverá un evento con el id del evento que buscamos o null si no existe
      * 
-     * @param id
+     * @param id el id del evento buscado
      * @return el id del evento o null si no existe
      */
     public Evento get(int id) {
@@ -133,8 +123,7 @@ public class Evento {
             ResultSet rs = st.executeQuery("SELECT * FROM EVENTO WHERE id = " + id);
             if (rs.next()) {
                 e = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
-                        rs.getString("lugar"),
-                        rs.getDate("fecha"), rs.getDate("fecha_inicio"), rs.getDate("fecha_fin"),
+                        rs.getString("lugar"), rs.getDate("fecha_inicio"), rs.getDate("fecha_fin"),
                         rs.getInt("id_categoria"));
             } else {
                 e = null;
@@ -163,7 +152,7 @@ public class Evento {
                     "SELECT * FROM EVENTO WHERE nombre LIKE '%" + txt + "%' OR descripcion LIKE '%" + txt + "%'");
             while (rs.next()) {
                 Evento e = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
-                        rs.getString("lugar"), rs.getDate("fecha"), rs.getDate("fecha_inicio"), rs.getDate("fecha_fin"),
+                        rs.getString("lugar"), rs.getDate("fecha_inicio"), rs.getDate("fecha_fin"),
                         rs.getInt("id_categoria"));
                 listaEventos.add(e);
             }
@@ -217,8 +206,8 @@ public class Evento {
             if (rs.next()) {
                 // Modificar
                 st.executeUpdate("UPDATE EVENTO SET nombre = '" + this.getNombre() + "', descripcion = '"
-                        + this.getDescripcion() + "', lugar = '" + this.getLugar() + "', fecha = '" + this.getFecha()
-                        + "', fecha_inicio = '" + this.getFecha_inicio() + "', fecha_fin = '" + this.getFecha_fin()
+                        + this.getDescripcion() + "', lugar = '" + this.getLugar() + "', fecha_inicio = '"
+                        + this.getFecha_inicio() + "', fecha_fin = '" + this.getFecha_fin()
                         + "', id_categoria = " + this.getId_categoria() + " WHERE id = " + this.getId());
                 resultado = 1;
             } else {
@@ -227,7 +216,7 @@ public class Evento {
                         "INSERT INTO EVENTO (id, nombre, descripcion, lugar, fecha, fecha_inicio, fecha_fin, id_categoria) VALUES ("
                                 + this.getId() + ", '" + this.getNombre() + "', '" + this.getDescripcion() + "', '"
                                 + this.getLugar()
-                                + "', '" + this.getFecha() + "', '" + this.getFecha_inicio() + "', '"
+                                + "', '" + this.getFecha_inicio() + "', '"
                                 + this.getFecha_fin() + "', "
                                 + this.getId_categoria() + ")");
                 resultado = 1;
@@ -273,10 +262,10 @@ public class Evento {
      * @return la categoría a la que pertenece el evento.
      * 
      */
-    public Categoria getCategoria(){
-       // Connection con = ConexionBD.getConection();
+    public Categoria getCategoria() {
+        // Connection con = ConexionBD.getConection();
         Categoria c = null;
-        
+
         return c;
     }
 

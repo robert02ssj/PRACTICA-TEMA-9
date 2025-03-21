@@ -88,8 +88,8 @@ public abstract class Persona {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM PERSONA WHERE id = " + id);
             if (rs.next()) {
-                // p = new Persona(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido1"),
-                //         rs.getString("apellido2"));
+                //p = new Persona(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido1"),
+                //     rs.getString("apellido2"));
             }
             con.close();
         } catch (Exception e) {
