@@ -274,7 +274,7 @@ public class Evento {
      * 
      */
     public Categoria getCategoria(){
-        Connection con = ConexionBD.getConection();
+       // Connection con = ConexionBD.getConection();
         Categoria c = null;
         
         return c;
