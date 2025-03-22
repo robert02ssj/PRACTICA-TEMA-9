@@ -58,5 +58,13 @@ public class CategoriaController {
         App.setRoot("Eventos");
     }
 
+    @FXML
+    private void CambiarParticipantes() throws IOException {
+        App.setRoot("Participante");
+    }
+    @FXML
+    private void CambiarArtistas() throws IOException {
+        App.setRoot("Artista");
     
+}
 }

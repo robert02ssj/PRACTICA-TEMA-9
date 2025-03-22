@@ -17,7 +17,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 import javafx.fxml.FXML;
 
-public class EventoController {
+public class ArtistaController {
 
     @FXML
     TableView tableView;
@@ -29,47 +29,45 @@ public class EventoController {
     TableColumn<Evento, Integer> IdColumn;
 
     @FXML
-    TableColumn<Evento, String> DescColumn;
+    TableColumn<Evento, String> Apellido1Col;
 
     @FXML
-    TableColumn<Evento, String> LugarCol;
-
+    TableColumn<Evento, String> Apellido2Col;
+    
     @FXML
-    TableColumn<Evento, Date> FechaIniCol;
-
+    TableColumn<Evento, String> FotoCol;
+    
     @FXML
-    TableColumn<Evento, Date> FechaFinCol;
+    TableColumn<Evento, String> ObraCol;
 
-    @FXML
-    TableColumn<Evento, Integer> idCatCol;
-
+    
 
 
-    private ObservableList<Evento> listaEventos = FXCollections.observableArrayList();
+
+    private ObservableList<Evento> listaArtistas = FXCollections.observableArrayList();
 
 
     @FXML
     private void initialize(){
         nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         IdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        DescColumn.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-        LugarCol.setCellValueFactory(new PropertyValueFactory<>("lugar"));
-        FechaIniCol.setCellValueFactory(new PropertyValueFactory<>("fecha_inicio"));
-        FechaFinCol.setCellValueFactory(new PropertyValueFactory<>("fecha_fin"));
-        idCatCol.setCellValueFactory(new PropertyValueFactory<>("id_categoria"));
+        Apellido1Col.setCellValueFactory(new PropertyValueFactory<>("apellido1"));
+        Apellido2Col.setCellValueFactory(new PropertyValueFactory<>("apellido2"));
+        FotoCol.setCellValueFactory(new PropertyValueFactory<>("fotografia"));
+        ObraCol.setCellValueFactory(new PropertyValueFactory<>("obra_destacada"));
 
-        tableView.setItems(listaEventos);
+        tableView.setItems(listaArtistas);
         nombreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        DescColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+       
 
-        tableView.setItems(listaEventos);
+        tableView.setItems(listaArtistas);
         loadData();
 
 
     }
 
     public void loadData(){
-        Evento.getAll(listaEventos);
+        //Evento.getAll(listaArtistas);
     }
 
     @FXML
@@ -81,8 +79,8 @@ public class EventoController {
         App.setRoot("Participante");
     }
     @FXML
-    private void CambiarArtistas() throws IOException {
-        App.setRoot("Artista");
+    private void CambiarEventos() throws IOException {
+        App.setRoot("Eventos");
     }
     
 

@@ -13,12 +13,20 @@
         <menus>
           <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos">
                <items>
-                  <MenuItem fx:id="cambev" mnemonicParsing="false" onAction="#CambiarEventos" text="Unspecified Action" />
+                  <MenuItem fx:id="cambev" mnemonicParsing="false" onAction="#CambiarEventos" text="Ver Eventos" />
                </items>
           </Menu>
             <Menu fx:id="Categoria" mnemonicParsing="false"  text="Categorias" />
-          <Menu mnemonicParsing="false" text="Participantes" />
-          <Menu mnemonicParsing="false" text="Artistas" />
+          <Menu fx:id="Participantes" mnemonicParsing="false" text="Participantes">
+               <items>
+                  <MenuItem fx:id="cambiarpart" mnemonicParsing="false" onAction="#CambiarParticipantes" text="Ver Participantes" />
+               </items>
+            </Menu>
+          <Menu fx:id="Artistas" mnemonicParsing="false" text="Artistas">
+               <items>
+                  <MenuItem fx:id="cambiarart" mnemonicParsing="false" onAction="#CambiarArtistas" text="Ver Artistas" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <TableView fx:id="tableView" editable="true" prefHeight="408.0" prefWidth="594.0">

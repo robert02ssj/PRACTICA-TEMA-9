@@ -7,25 +7,37 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="429.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.EventoController">
+<VBox alignment="TOP_CENTER" prefHeight="420.0" prefWidth="766.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.EventoController">
    <children>
       <MenuBar prefHeight="5.0" prefWidth="399.0">
         <menus>
           <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos" />
             <Menu fx:id="Categoria" mnemonicParsing="false" text="Categorias">
                <items>
-                  <MenuItem fx:id="cambiar" mnemonicParsing="false" onAction="#CambiarCategoria" text="Unspecified Action" />
+                  <MenuItem fx:id="cambiar" mnemonicParsing="false" onAction="#CambiarCategoria" text="Ver Categorias" />
                </items>
             </Menu>
-          <Menu mnemonicParsing="false" text="Participantes" />
-          <Menu mnemonicParsing="false" text="Artistas" />
+          <Menu fx:id="Participantes" mnemonicParsing="false" text="Participantes">
+               <items>
+                  <MenuItem fx:id="cambiarpart" mnemonicParsing="false" onAction="#CambiarParticipantes" text="Ver Participantes" />
+               </items>
+            </Menu>
+          <Menu fx:id="Artistas" mnemonicParsing="false" text="Artistas">
+               <items>
+                  <MenuItem fx:id="cambiarart" mnemonicParsing="false" onAction="#CambiarArtistas" text="Ver Artistas" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
-      <TableView fx:id="tableView" editable="true" prefHeight="408.0" prefWidth="594.0">
+      <TableView fx:id="tableView" editable="true" prefHeight="404.0" prefWidth="931.0">
         <columns>
-          <TableColumn fx:id="IdColumn" prefWidth="56.0" text="ID" />
-          <TableColumn fx:id="nombreColumn" prefWidth="137.60003662109375" text="Nombre" />          
-          <TableColumn fx:id="DescColumn" prefWidth="203.99998779296874" text="Descripcion" />
+          <TableColumn fx:id="IdColumn" prefWidth="28.0" text="ID" />
+          <TableColumn fx:id="nombreColumn" prefWidth="109.0" text="Nombre" />          
+          <TableColumn fx:id="DescColumn" prefWidth="229.0" text="Descripcion" />
+          <TableColumn fx:id="LugarCol" prefWidth="144.0" text="Lugar" />
+          <TableColumn fx:id="FechaIniCol" prefWidth="86.0" text="FechaIni" />
+          <TableColumn fx:id="FechaFinCol" prefWidth="87.0" text="FechaFin" />
+          <TableColumn fx:id="idCatCol" prefWidth="75.0" text="id Categoria" />
         </columns>
       </TableView>
    </children>

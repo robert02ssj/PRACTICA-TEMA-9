@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="429.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.CategoriaController">
+<VBox alignment="TOP_CENTER" prefHeight="429.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ParticipanteController">
    <children>
       <MenuBar prefHeight="5.0" prefWidth="399.0">
         <menus>
@@ -16,12 +16,14 @@
                   <MenuItem fx:id="cambev" mnemonicParsing="false" onAction="#CambiarEventos" text="Ver Eventos" />
                </items>
           </Menu>
-            <Menu fx:id="Categoria" mnemonicParsing="false"  text="Categorias" />
-          <Menu fx:id="Participantes" mnemonicParsing="false" text="Participantes">
+            <Menu fx:id="Categoria" mnemonicParsing="false" text="Categorias">
                <items>
-                  <MenuItem fx:id="cambiarpart" mnemonicParsing="false" onAction="#CambiarParticipantes" text="Ver Participantes" />
+                  <MenuItem fx:id="cambiarcat" mnemonicParsing="false" onAction="#CambiarCategoria" text="Ver Categorias" />
                </items>
             </Menu>
+
+          <Menu mnemonicParsing="false" text="Participantes" />
+
           <Menu fx:id="Artistas" mnemonicParsing="false" text="Artistas">
                <items>
                   <MenuItem fx:id="cambiarart" mnemonicParsing="false" onAction="#CambiarArtistas" text="Ver Artistas" />
@@ -33,7 +35,9 @@
         <columns>
           <TableColumn fx:id="IdColumna" prefWidth="56.0" text="ID" />
           <TableColumn fx:id="nombreColumna" prefWidth="137.60003662109375" text="Nombre" />          
-          <TableColumn fx:id="DescColumna" prefWidth="203.99998779296874" text="Descripcion" />
+          <TableColumn fx:id="Apellido1Col" prefWidth="137.99998779296874" text="Apellido" />
+          <TableColumn fx:id="Apellido2Col" prefWidth="137.99998474121094" text="Apellido" />
+          <TableColumn fx:id="EmailCol" prefWidth="137.99998474121094" text="Email" />
         </columns>
       </TableView>
    </children>
