@@ -58,8 +58,5 @@ public class EventoController {
         App.setRoot("Categoria");
     }
 
-    @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("Eventos");
-    }
+    
 }

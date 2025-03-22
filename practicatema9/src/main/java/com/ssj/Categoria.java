@@ -77,7 +77,7 @@ public class Categoria {
      * 
      * @param listaCategorias la lista donde se añadirán las categorías obtenidas.
      */
-    public void getAll(ObservableList<Categoria> listaCategorias) {
+    public static void getAll(ObservableList<Categoria> listaCategorias) {
         Connection con = ConexionBD.getConection();
         try {
             Statement st = con.createStatement();
