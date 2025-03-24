@@ -6,21 +6,15 @@ import java.sql.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-
-import javafx.fxml.FXML;
 
 public class EventoController {
 
     @FXML
-    TableView tableView;
+    TableView  tableView;
 
     @FXML
     TableColumn<Evento, String> nombreColumn;
@@ -35,10 +29,10 @@ public class EventoController {
     TableColumn<Evento, String> LugarCol;
 
     @FXML
-    TableColumn<Evento, Date> FechaIniCol;
+    TableColumn<Evento,String> FechaIniCol;
 
     @FXML
-    TableColumn<Evento, Date> FechaFinCol;
+    TableColumn<Evento, String> FechaFinCol;
 
     @FXML
     TableColumn<Evento, Integer> idCatCol;
@@ -61,6 +55,40 @@ public class EventoController {
         tableView.setItems(listaEventos);
         nombreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         DescColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        LugarCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        FechaIniCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        FechaFinCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+
+        nombreColumn.setOnEditCommit(event -> {
+            Evento Evento = event.getRowValue();
+            Evento.setNombre(event.getNewValue());
+            saveRow(Evento);
+        });  
+
+        DescColumn.setOnEditCommit(event -> {
+            Evento Evento = event.getRowValue();
+            Evento.setDescripcion(event.getNewValue());
+            saveRow(Evento);
+        });
+
+        LugarCol.setOnEditCommit(event -> {
+            Evento Evento = event.getRowValue();
+            Evento.setLugar(event.getNewValue());
+            saveRow(Evento);
+        });
+
+        FechaIniCol.setOnEditCommit(event -> {
+            Evento Evento = event.getRowValue();
+            Evento.setFecha_inicio(event.getNewValue());
+            saveRow(Evento);
+        });
+
+        FechaFinCol.setOnEditCommit(event -> {
+            Evento Evento = event.getRowValue();
+            Evento.setFecha_fin(event.getNewValue());
+            saveRow(Evento);
+        });
 
         tableView.setItems(listaEventos);
         loadData();
@@ -85,6 +113,8 @@ public class EventoController {
         App.setRoot("Artista");
     }
     
-
+    public void saveRow(Evento Evento) {
+        Evento.save();
+    }
     
 }

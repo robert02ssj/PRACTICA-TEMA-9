@@ -54,26 +54,7 @@ public abstract class Persona {
         this.apellido2.set(apellido2);
     }
 
-    /**
-     * Devolverá un array con todas las personas de la BD o null si no hay ninguna
-     * persona.
-     * 
-     * @param listaPersonas Lista observable donde se almacenarán las personas.
-     */
-    public void getAll(ObservableList<Persona> listaPersonas) {
-        Connection con = ConexionBD.getConection();
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM PERSONA");
-            while (rs.next()) {
-                //listaPersonas.add(new Persona(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido1"),
-                //        rs.getString("apellido2")));
-            }
-            con.close();
-        } catch (Exception e) {
-            System.out.println("Error en SQL " + e);
-        }
-    }
+    
 
     /**
      * Devolverá una persona con el id especificado o null si no existe.

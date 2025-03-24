@@ -1,4 +1,5 @@
 package com.ssj;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -7,47 +8,51 @@ import java.sql.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+
 public class Participante extends Persona {
     private IntegerProperty id;
     private StringProperty email;
-    public Participante(int id, String nombre, String apellido1, String apellido2, String email){
+
+    public Participante(int id, String nombre, String apellido1, String apellido2, String email) {
         super(id, nombre, apellido1, apellido2);
         this.id = new SimpleIntegerProperty(id);
         this.email = new SimpleStringProperty(email);
     }
 
-    public int getId(){
+    public int getId() {
         return id.get();
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id.set(id);
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email.get();
     }
 
-    public void setEmail(String email){
+    public void setEmail(String email) {
         this.email.set(email);
     }
 
-    public void participa(int idEvento, int idPersona, String fecha){
-    
+    public void participa(int idEvento, int idPersona, String fecha) {
+
     }
 
     /**
-     * Devolverá un array con todos los participantes de la BD o null si no hay ningún
+     * Devolverá un array con todos los participantes de la BD o null si no hay
+     * ningún
      * participante.
      * 
      * @param listaParticipantes Lista donde se almacenarán los participantes.
      */
-    @Override
-    public void getAll(ObservableList<Persona> listaParticipantes) {
+    public static void getAll(ObservableList<Persona> listaParticipantes) {
         Connection con = ConexionBD.getConection();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPANTE");
+            ResultSet rs = st
+                    .executeQuery("SELECT * FROM PARTICIPANTE INNER JOIN PERSONA ON PARTICIPANTE.id = PERSONA.id");
+
             while (rs.next()) {
                 listaParticipantes.add(new Participante(rs.getInt("id"), rs.getString("nombre"),
                         rs.getString("apellido1"), rs.getString("apellido2"), rs.getString("email")));
@@ -121,16 +126,19 @@ public class Participante extends Persona {
             ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPANTE WHERE id = " + this.getId());
             if (rs.next()) {
                 // Modificar
-                st.executeUpdate("UPDATE PARTICIPANTE SET nombre = '" + this.getNombre() + "', apellido1 = '"
-                        + this.getApellido1() + "', apellido2 = '" + this.getApellido2() + "', email = '"
-                        + this.getEmail() + "' WHERE id = " + this.getId());
+                st.executeUpdate(
+                        "UPDATE PARTICIPANTE SET email = '" + this.getEmail() + "' WHERE id = " + this.getId());
+                st.executeUpdate("UPDATE PERSONA SET nombre = '" + this.getNombre() + "', apellido1 = '"
+                        + this.getApellido1() + "', apellido2 = '" + this.getApellido2() + "' WHERE id = "
+                        + this.getId());
                 resultado = 1;
             } else {
                 // Insertar
                 st.executeUpdate(
-                        "INSERT INTO PARTICIPANTE (id, nombre, apellido1, apellido2, email) VALUES ("
-                                + this.getId() + ", '" + this.getNombre() + "', '" + this.getApellido1() + "', '"
-                                + this.getApellido2() + "', '" + this.getEmail() + "')");
+                        "INSERT INTO PARTICIPANTE (id,email) VALUES (" + this.getId() + ", '" + this.getEmail() + "')");
+                st.executeUpdate("INSERT INTO PERSONA (id, nombre, apellido1, apellido2) VALUES (" + this.getId()
+                        + ", '" + this.getNombre() + "', '" + this.getApellido1() + "', '" + this.getApellido2()
+                        + "')");
                 resultado = 1;
             }
             con.close();

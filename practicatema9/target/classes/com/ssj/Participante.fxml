@@ -33,8 +33,8 @@
       </MenuBar>
       <TableView fx:id="tableView" editable="true" prefHeight="408.0" prefWidth="594.0">
         <columns>
-          <TableColumn fx:id="IdColumna" prefWidth="56.0" text="ID" />
-          <TableColumn fx:id="nombreColumna" prefWidth="137.60003662109375" text="Nombre" />          
+          <TableColumn fx:id="IdPartColumn" prefWidth="56.0" text="ID" />
+          <TableColumn fx:id="NombrePartCol" prefWidth="137.60003662109375" text="Nombre" />          
           <TableColumn fx:id="Apellido1Col" prefWidth="137.99998779296874" text="Apellido" />
           <TableColumn fx:id="Apellido2Col" prefWidth="137.99998474121094" text="Apellido" />
           <TableColumn fx:id="EmailCol" prefWidth="137.99998474121094" text="Email" />

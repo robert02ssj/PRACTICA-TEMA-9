@@ -14,18 +14,18 @@ public class Evento {
     private StringProperty nombre;
     private StringProperty descripcion;
     private StringProperty lugar;
-    private java.sql.Date fecha_inicio;
-    private java.sql.Date fecha_fin;
+    private StringProperty fecha_inicio;
+    private StringProperty fecha_fin;
     private IntegerProperty id_categoria;
 
-    public Evento(int id, String nombre, String descripcion, String lugar, java.sql.Date fecha_inicio,
-            java.sql.Date fecha_fin, int id_categoria) {
+    public Evento(int id, String nombre, String descripcion, String lugar, String fecha_inicio,
+            String fecha_fin, int id_categoria) {
         this.id = new SimpleIntegerProperty(id);
         this.nombre = new SimpleStringProperty(nombre);
         this.descripcion = new SimpleStringProperty(descripcion);
         this.lugar = new SimpleStringProperty(lugar);
-        this.fecha_inicio = fecha_inicio;
-        this.fecha_fin = fecha_fin;
+        this.fecha_inicio = new SimpleStringProperty(fecha_inicio);
+        this.fecha_fin = new SimpleStringProperty(fecha_inicio);
         this.id_categoria = new SimpleIntegerProperty(id_categoria);
     }
 
@@ -61,20 +61,20 @@ public class Evento {
         this.lugar.set(lugar);
     }
 
-    public java.sql.Date getFecha_inicio() {
-        return fecha_inicio;
+    public String getFecha_inicio() {
+        return fecha_inicio.get();
     }
 
-    public void setFecha_inicio(java.sql.Date fecha_inicio) {
-        this.fecha_inicio = fecha_inicio;
+    public void setFecha_inicio(String fecha_inicio) {
+        this.fecha_inicio.set(fecha_inicio);
     }
 
-    public java.sql.Date getFecha_fin() {
-        return fecha_fin;
+    public String getFecha_fin() {
+        return fecha_fin.get();
     }
 
-    public void setFecha_fin(java.sql.Date fecha_fin) {
-        this.fecha_fin = fecha_fin;
+    public void setFecha_fin(String fecha_fin) {
+        this.fecha_fin.set(fecha_fin);
     }
 
     public int getId_categoria() {
@@ -100,7 +100,7 @@ public class Evento {
             ResultSet rs = st.executeQuery("SELECT * FROM EVENTO");
             while (rs.next()) {
                 listaEventos.add(new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
-                        rs.getString("lugar"), rs.getDate("fecha_inicio"), rs.getDate("fecha_fin"),
+                        rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
                         rs.getInt("id_categoria")));
             }
             con.close();
@@ -123,7 +123,7 @@ public class Evento {
             ResultSet rs = st.executeQuery("SELECT * FROM EVENTO WHERE id = " + id);
             if (rs.next()) {
                 e = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
-                        rs.getString("lugar"), rs.getDate("fecha_inicio"), rs.getDate("fecha_fin"),
+                        rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
                         rs.getInt("id_categoria"));
             } else {
                 e = null;
@@ -152,7 +152,7 @@ public class Evento {
                     "SELECT * FROM EVENTO WHERE nombre LIKE '%" + txt + "%' OR descripcion LIKE '%" + txt + "%'");
             while (rs.next()) {
                 Evento e = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
-                        rs.getString("lugar"), rs.getDate("fecha_inicio"), rs.getDate("fecha_fin"),
+                        rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
                         rs.getInt("id_categoria"));
                 listaEventos.add(e);
             }
