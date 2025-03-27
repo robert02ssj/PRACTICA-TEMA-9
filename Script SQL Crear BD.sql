@@ -1,0 +1,54 @@
+Drop schema  if EXISTS PracticaProg ;
+CREATE DATABASE PracticaProg;
+USE PracticaProg;
+
+CREATE TABLE PERSONA (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    apellido1 VARCHAR(100) NOT NULL,
+    apellido2 VARCHAR(100)
+);
+
+
+CREATE TABLE PARTICIPANTE (
+    id INT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    FOREIGN KEY (id) REFERENCES PERSONA(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE ARTISTA (
+    id INT PRIMARY KEY,
+    fotografia VARCHAR(255),
+    obra_destacada VARCHAR(255),
+    FOREIGN KEY (id) REFERENCES PERSONA(id) ON DELETE CASCADE
+);
+CREATE TABLE CATEGORIA (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT
+);
+CREATE TABLE EVENTO (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    lugar VARCHAR(255) NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    id_categoria INT,
+    FOREIGN KEY (id_categoria) REFERENCES CATEGORIA(id) ON DELETE CASCADE
+);
+
+CREATE TABLE PARTICIPA (
+    id_persona INT,
+    id_evento INT,
+    fecha DATE NOT NULL,
+    PRIMARY KEY (id_persona, id_evento),
+    FOREIGN KEY (id_persona) REFERENCES PERSONA(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_evento) REFERENCES EVENTO(id) ON DELETE CASCADE
+);
+
+
+
+
+
