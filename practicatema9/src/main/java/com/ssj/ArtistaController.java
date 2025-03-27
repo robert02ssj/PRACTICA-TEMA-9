@@ -2,6 +2,7 @@ package com.ssj;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +24,7 @@ public class ArtistaController {
     TableView tableView;
 
     @FXML
-    TableColumn<Artista, String> nombreColumnArt;
+    TableColumn<Artista, String> ArtName;
 
     @FXML
     TableColumn<Artista, Integer> IdColArt;
@@ -38,7 +39,7 @@ public class ArtistaController {
     TableColumn<Artista, String> FotoColArt;
     
     @FXML
-    TableColumn<Artista, String> ObraColArt;
+    TableColumn<Artista, String> ObraCol;
 
     
 
@@ -49,21 +50,22 @@ public class ArtistaController {
 
     @FXML
     private void initialize(){
-        nombreColumnArt.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        ArtName.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         IdColArt.setCellValueFactory(new PropertyValueFactory<>("id"));
         Apellido1ColArt.setCellValueFactory(new PropertyValueFactory<>("apellido1"));
         Apellido2ColArt.setCellValueFactory(new PropertyValueFactory<>("apellido2"));
         FotoColArt.setCellValueFactory(new PropertyValueFactory<>("fotografia"));
-        ObraColArt.setCellValueFactory(new PropertyValueFactory<>("obra_destacada"));
+        ObraCol.setCellValueFactory(new PropertyValueFactory<>("obraDestacada"));
 
         tableView.setItems(listaArtistas);
-        nombreColumnArt.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        ArtName.setCellFactory(TextFieldTableCell.forTableColumn());
         Apellido1ColArt.setCellFactory(TextFieldTableCell.forTableColumn());
         Apellido2ColArt.setCellFactory(TextFieldTableCell.forTableColumn());
         FotoColArt.setCellFactory(TextFieldTableCell.forTableColumn());
-        ObraColArt.setCellFactory(TextFieldTableCell.forTableColumn());
+        ObraCol.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        nombreColumnArt.setOnEditCommit(event -> {
+        ArtName.setOnEditCommit(event -> {
             Artista Artista = event.getRowValue();
             Artista.setNombre(event.getNewValue());
             saveRow(Artista);
@@ -87,14 +89,14 @@ public class ArtistaController {
             saveRow(Artista);
         });
 
-        ObraColArt.setOnEditCommit(event -> {
+        ObraCol.setOnEditCommit(event -> {
             Artista Artista = event.getRowValue();
             Artista.setObraDestacada(event.getNewValue());
             saveRow(Artista);
         });
 
 
-
+        
         tableView.setItems(listaArtistas);
         loadData();
 
@@ -122,7 +124,34 @@ public class ArtistaController {
         Artista.save();
     }
 
-    
+    @FXML
+    public void addRow() throws IOException {
+        // Creamos un usuario vacío
+        Artista filaVacia = new Artista(Persona.getLastId()+1, "", "", "", "", "");
+
+        // Añadimos la fila vacía al ObservableList (esto lo añadirá también al TableView)
+        listaArtistas.add(filaVacia);
+
+        // Seleccionamos la fila recién añadida y hacemos que sea editable
+        tableView.getSelectionModel().select(filaVacia);
+        
+
+    }
+
+        @FXML
+    public void deleteRow() {
+        // Pedimos confirmación con un Alert antes de continuar
+        Alert a = new Alert(AlertType.CONFIRMATION);
+        a.setTitle("Confirmación");
+        a.setHeaderText("¿Estás seguro de que quieres borrar este Evento?");
+        Optional<ButtonType> result = a.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // Obtenemos el usuario seleccionado
+            Artista Arti = (Artista) tableView.getSelectionModel().getSelectedItem();
+            Arti.delete();  // Lo borramos de la base de datos
+            listaArtistas.remove(Arti);  // Lo borramos del ObservableList y del TableView
+        }
+    }
 
 
     

@@ -143,13 +143,15 @@ public class Artista extends Persona {
                 resultado = 1;
             } else {
                 // Insertar
-                st.executeUpdate("INSERT INTO PERSONA (id, nombre, apellido1, apellido2) VALUES (" + this.getId()
-                        + ", '" + this.getNombre() + "', '" + this.getApellido1() + "', '" + this.getApellido2()
-                        + "')");
                 st.executeUpdate(
                         "INSERT INTO ARTISTA (id, fotografia, obra_destacada) VALUES ("
                                 + this.getId() + "', '" + this.getFotografia() + "', '"
                                 + this.getObraDestacada() + "')");
+                
+                st.executeUpdate("INSERT INTO PERSONA (id, nombre, apellido1, apellido2) VALUES (" + this.getId()
+                        + ", '" + this.getNombre() + "', '" + this.getApellido1() + "', '" + this.getApellido2()
+                        + "')");
+                
                 resultado = 1;
             }
             con.close();

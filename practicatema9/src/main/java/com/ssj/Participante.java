@@ -51,7 +51,7 @@ public class Participante extends Persona {
         try {
             Statement st = con.createStatement();
             ResultSet rs = st
-                    .executeQuery("SELECT * FROM PARTICIPANTE INNER JOIN PERSONA ON PARTICIPANTE.id = PERSONA.id");
+                    .executeQuery("SELECT * FROM PARTICIPANTE INNER JOIN PERSONA ON PARTICIPANTE.id = PERSONA.id ORDER BY PERSONA.id");
 
             while (rs.next()) {
                 listaParticipantes.add(new Participante(rs.getInt("id"), rs.getString("nombre"),
@@ -74,7 +74,7 @@ public class Participante extends Persona {
         Participante p = null;
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPANTE WHERE id = " + id);
+            ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPANTE WHERE id = " + id + " INNER JOIN PERSONA ON PARTICIPANTE.id = PERSONA.id");
             if (rs.next()) {
                 p = new Participante(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido1"),
                         rs.getString("apellido2"), rs.getString("email"));
@@ -98,7 +98,7 @@ public class Participante extends Persona {
         int id = 0;
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT MAX(id) FROM PARTICIPANTE");
+            ResultSet rs = st.executeQuery("SELECT MAX(id) FROM PERSONA");
             if (rs.next()) {
                 id = rs.getInt(1);
             }

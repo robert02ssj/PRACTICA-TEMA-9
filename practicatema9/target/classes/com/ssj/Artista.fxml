@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="429.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ArtistaController">
+<VBox alignment="TOP_CENTER" prefHeight="498.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ArtistaController">
    <children>
       <MenuBar prefHeight="5.0" prefWidth="399.0">
         <menus>
@@ -29,15 +32,23 @@
           <Menu mnemonicParsing="false" text="Artistas" />
         </menus>
       </MenuBar>
-      <TableView fx:id="tableView" editable="true" prefHeight="408.0" prefWidth="594.0">
+      <TableView fx:id="tableView" editable="true" prefHeight="473.0" prefWidth="751.0">
         <columns>
           <TableColumn fx:id="IdColArt" prefWidth="56.0" text="ID" />
-          <TableColumn fx:id="NombreColumnArt" prefWidth="137.60003662109375" text="Nombre" />          
+          <TableColumn fx:id="ArtName" prefWidth="137.60003662109375" text="Nombre" />          
           <TableColumn fx:id="Apellido1ColArt" prefWidth="137.99998779296874" text="Apellido 1" />
           <TableColumn fx:id="Apellido2ColArt" prefWidth="137.99998474121094" text="Apellido 2" />
           <TableColumn fx:id="FotoColArt" prefWidth="137.99998474121094" text="Foto" />
-          <TableColumn fx:id="ObraColArt" prefWidth="137.99998474121094" text="Obra Destacada" />
+          <TableColumn fx:id="ObraCol" prefWidth="137.99998474121094" text="Obra Destacada" />
         </columns>
       </TableView>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="anadirart" mnemonicParsing="false" onAction="#addRow" text="Añadir Artista" />
+            <Label prefHeight="17.0" prefWidth="53.0" />
+            <Label prefHeight="17.0" prefWidth="54.0" />
+            <Button fx:id="deleteart" mnemonicParsing="false" onAction="#deleteRow" text="Borrar" />
+         </children>
+      </HBox>
    </children>
 </VBox>
