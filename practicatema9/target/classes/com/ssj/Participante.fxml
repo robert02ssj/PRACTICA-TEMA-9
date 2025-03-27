@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="536.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ParticipanteController">
+<VBox alignment="TOP_CENTER" prefHeight="536.0" prefWidth="708.0" spacing="10" style="-fx-padding: 0; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ParticipanteController">
    <children>
-      <MenuBar prefHeight="5.0" prefWidth="399.0">
+      <MenuBar prefHeight="30.0" style="-fx-padding: 0;">
         <menus>
           <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos">
                <items>
@@ -34,7 +34,7 @@
             </Menu>
         </menus>
       </MenuBar>
-      <TableView fx:id="tableView" editable="true" prefHeight="509.0" prefWidth="708.0">
+      <TableView fx:id="tableView" editable="true" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 5;">
         <columns>
           <TableColumn fx:id="IdPartColumn" prefWidth="56.0" text="ID" />
           <TableColumn fx:id="NombrePartCol" prefWidth="137.60003662109375" text="Nombre" />          
@@ -43,11 +43,11 @@
           <TableColumn fx:id="EmailCol" prefWidth="137.99998474121094" text="Email" />
         </columns>
       </TableView>
-      <HBox alignment="CENTER" prefHeight="97.0" prefWidth="708.0">
+      <HBox alignment="CENTER" spacing="15" style="-fx-padding: 10;">
          <children>
-            <Button fx:id="anadirpart" mnemonicParsing="false" onAction="#addRow" text="Añadir Participante" />
+            <Button fx:id="anadirpart" mnemonicParsing="false" onAction="#addRow" text="Añadir Participante" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
             <Label prefHeight="18.0" prefWidth="62.0" />
-            <Button fx:id="BorrarPart" mnemonicParsing="false" onAction="#deleteRow" text="Borrar" />
+            <Button fx:id="BorrarPart" mnemonicParsing="false" onAction="#deleteRow" text="Borrar" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
          </children>
       </HBox>
    </children>

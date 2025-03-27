@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="558.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.EventoController">
+<VBox alignment="TOP_CENTER" prefHeight="558.0" prefWidth="878.0" spacing="10" style="-fx-padding: 0; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.EventoController">
    <children>
-      <MenuBar prefHeight="5.0" prefWidth="399.0">
+      <MenuBar prefHeight="30.0" style="-fx-padding: 0;">
         <menus>
           <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos" />
             <Menu fx:id="Categoria" mnemonicParsing="false" text="Categorias">
@@ -32,7 +32,7 @@
             </Menu>
         </menus>
       </MenuBar>
-      <TableView fx:id="tableView" editable="true" prefHeight="509.0" prefWidth="878.0">
+      <TableView fx:id="tableView" editable="true" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 5;">
         <columns>
           <TableColumn fx:id="IdColumn" prefWidth="28.0" text="ID" />
           <TableColumn fx:id="nombreColumn" prefWidth="109.0" text="Nombre" />          
@@ -44,12 +44,10 @@
           <TableColumn fx:id="NombreCateCol" prefWidth="75.0" text="Nombre Categoria" />
         </columns>
       </TableView>
-      <HBox alignment="CENTER" prefHeight="82.0" prefWidth="782.0">
+      <HBox alignment="CENTER" spacing="15" style="-fx-padding: 10;">
          <children>
-            <Button fx:id="añadirev" mnemonicParsing="false" onAction="#addRow" text="Añadir Nuevo" />
-            <Label prefHeight="18.0" prefWidth="57.0" />
-            <Label prefHeight="18.0" prefWidth="42.0" />
-            <Button fx:id="BorrarEv" mnemonicParsing="false" onAction="#deleteRow" text="Borrar" />
+            <Button fx:id="añadirev" mnemonicParsing="false" onAction="#addRow" text="Añadir Nuevo" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+            <Button fx:id="BorrarEv" mnemonicParsing="false" onAction="#deleteRow" text="Borrar" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
          </children>
       </HBox>
    </children>
