@@ -31,12 +31,12 @@
       </MenuBar>
       <TableView fx:id="tableView" editable="true" prefHeight="408.0" prefWidth="594.0">
         <columns>
-          <TableColumn fx:id="IdColumna" prefWidth="56.0" text="ID" />
-          <TableColumn fx:id="nombreColumna" prefWidth="137.60003662109375" text="Nombre" />          
-          <TableColumn fx:id="Apellido1Col" prefWidth="137.99998779296874" text="Apellido" />
-          <TableColumn fx:id="Apellido2Col" prefWidth="137.99998474121094" text="Apellido" />
-          <TableColumn fx:id="FotoCol" prefWidth="137.99998474121094" text="Foto" />
-          <TableColumn fx:id="ObraCol" prefWidth="137.99998474121094" text="Obra Destacada" />
+          <TableColumn fx:id="IdColArt" prefWidth="56.0" text="ID" />
+          <TableColumn fx:id="NombreColumnArt" prefWidth="137.60003662109375" text="Nombre" />          
+          <TableColumn fx:id="Apellido1ColArt" prefWidth="137.99998779296874" text="Apellido 1" />
+          <TableColumn fx:id="Apellido2ColArt" prefWidth="137.99998474121094" text="Apellido 2" />
+          <TableColumn fx:id="FotoColArt" prefWidth="137.99998474121094" text="Foto" />
+          <TableColumn fx:id="ObraColArt" prefWidth="137.99998474121094" text="Obra Destacada" />
         </columns>
       </TableView>
    </children>

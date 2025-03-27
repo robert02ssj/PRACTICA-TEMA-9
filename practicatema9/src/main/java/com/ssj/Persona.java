@@ -86,7 +86,7 @@ public abstract class Persona {
      * @return El último ID asignado en la tabla de Persona o 0 si la tabla está
      *         vacía.
      */
-    public int getLastId() {
+    public static  int getLastId() {
         Connection con = ConexionBD.getConection();
         int id = 0;
         try {
@@ -110,7 +110,7 @@ public abstract class Persona {
      * @return 0 si no se ha podido almacenar nada o 1 si se ha almacenado
      *         correctamente.
      */
-    public int save() {
+    public int save(){
         int resultado = 0;
         Connection con = ConexionBD.getConection();
         try {

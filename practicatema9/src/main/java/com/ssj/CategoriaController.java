@@ -1,6 +1,7 @@
 package com.ssj;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,6 +43,18 @@ public class CategoriaController {
         tableView.setItems(listaCategorias);
         nombreColumna.setCellFactory(TextFieldTableCell.forTableColumn());
         DescColumna.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        nombreColumna.setOnEditCommit(event -> {
+            Categoria Categoria = event.getRowValue();
+            Categoria.setNombre(event.getNewValue());
+            saveRow(Categoria);
+        });  
+
+        DescColumna.setOnEditCommit(event -> {
+            Categoria Categoria = event.getRowValue();
+            Categoria.setDescripcion(event.getNewValue());
+            saveRow(Categoria);
+        });
 
         tableView.setItems(listaCategorias);
         loadData();
@@ -67,4 +80,37 @@ public class CategoriaController {
         App.setRoot("Artista");
     
 }
+
+    public void saveRow(Categoria Categoria) {
+      Categoria.save();
+}
+
+@FXML
+    public void addRow() throws IOException {
+        // Creamos un usuario vacío
+        Categoria filaVacia = new Categoria(Categoria.getLastId()+1, "", "");
+
+        // Añadimos la fila vacía al ObservableList (esto lo añadirá también al TableView)
+        listaCategorias.add(filaVacia);
+
+        // Seleccionamos la fila recién añadida y hacemos que sea editable
+        tableView.getSelectionModel().select(filaVacia);
+        
+
+    }
+
+        @FXML
+    public void deleteRow() {
+        // Pedimos confirmación con un Alert antes de continuar
+        Alert a = new Alert(AlertType.CONFIRMATION);
+        a.setTitle("Confirmación");
+        a.setHeaderText("¿Estás seguro de que quieres borrar este Evento?");
+        Optional<ButtonType> result = a.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // Obtenemos el usuario seleccionado
+            Categoria Cate = (Categoria) tableView.getSelectionModel().getSelectedItem();
+            Cate.delete();  // Lo borramos de la base de datos
+            listaCategorias.remove(Cate);  // Lo borramos del ObservableList y del TableView
+        }
+    }
 }

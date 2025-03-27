@@ -23,42 +23,77 @@ public class ArtistaController {
     TableView tableView;
 
     @FXML
-    TableColumn<Evento, String> nombreColumn;
+    TableColumn<Artista, String> nombreColumnArt;
 
     @FXML
-    TableColumn<Evento, Integer> IdColumn;
+    TableColumn<Artista, Integer> IdColArt;
 
     @FXML
-    TableColumn<Evento, String> Apellido1Col;
+    TableColumn<Artista, String> Apellido1ColArt;
 
     @FXML
-    TableColumn<Evento, String> Apellido2Col;
+    TableColumn<Artista, String> Apellido2ColArt;
     
     @FXML
-    TableColumn<Evento, String> FotoCol;
+    TableColumn<Artista, String> FotoColArt;
     
     @FXML
-    TableColumn<Evento, String> ObraCol;
+    TableColumn<Artista, String> ObraColArt;
 
     
 
 
 
-    private ObservableList<Evento> listaArtistas = FXCollections.observableArrayList();
+    private ObservableList<Persona> listaArtistas = FXCollections.observableArrayList();
 
 
     @FXML
     private void initialize(){
-        nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        IdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        Apellido1Col.setCellValueFactory(new PropertyValueFactory<>("apellido1"));
-        Apellido2Col.setCellValueFactory(new PropertyValueFactory<>("apellido2"));
-        FotoCol.setCellValueFactory(new PropertyValueFactory<>("fotografia"));
-        ObraCol.setCellValueFactory(new PropertyValueFactory<>("obra_destacada"));
+        nombreColumnArt.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        IdColArt.setCellValueFactory(new PropertyValueFactory<>("id"));
+        Apellido1ColArt.setCellValueFactory(new PropertyValueFactory<>("apellido1"));
+        Apellido2ColArt.setCellValueFactory(new PropertyValueFactory<>("apellido2"));
+        FotoColArt.setCellValueFactory(new PropertyValueFactory<>("fotografia"));
+        ObraColArt.setCellValueFactory(new PropertyValueFactory<>("obra_destacada"));
 
         tableView.setItems(listaArtistas);
-        nombreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-       
+        nombreColumnArt.setCellFactory(TextFieldTableCell.forTableColumn());
+        Apellido1ColArt.setCellFactory(TextFieldTableCell.forTableColumn());
+        Apellido2ColArt.setCellFactory(TextFieldTableCell.forTableColumn());
+        FotoColArt.setCellFactory(TextFieldTableCell.forTableColumn());
+        ObraColArt.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        nombreColumnArt.setOnEditCommit(event -> {
+            Artista Artista = event.getRowValue();
+            Artista.setNombre(event.getNewValue());
+            saveRow(Artista);
+        });
+        
+        Apellido1ColArt.setOnEditCommit(event -> {
+            Artista Artista = event.getRowValue();
+            Artista.setApellido1(event.getNewValue());
+            saveRow(Artista);
+        });
+
+        Apellido2ColArt.setOnEditCommit(event -> {
+            Artista Artista = event.getRowValue();
+            Artista.setApellido2(event.getNewValue());
+            saveRow(Artista);
+        });
+
+        FotoColArt.setOnEditCommit(event -> {
+            Artista Artista = event.getRowValue();
+            Artista.setFotografia(event.getNewValue());
+            saveRow(Artista);
+        });
+
+        ObraColArt.setOnEditCommit(event -> {
+            Artista Artista = event.getRowValue();
+            Artista.setObraDestacada(event.getNewValue());
+            saveRow(Artista);
+        });
+
+
 
         tableView.setItems(listaArtistas);
         loadData();
@@ -67,7 +102,7 @@ public class ArtistaController {
     }
 
     public void loadData(){
-        //Evento.getAll(listaArtistas);
+        Artista.getAll(listaArtistas);
     }
 
     @FXML
@@ -83,6 +118,12 @@ public class ArtistaController {
         App.setRoot("Eventos");
     }
     
+    public void saveRow(Artista Artista) {
+        Artista.save();
+    }
+
+    
+
 
     
 }

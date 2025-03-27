@@ -17,9 +17,10 @@ public class Evento {
     private StringProperty fecha_inicio;
     private StringProperty fecha_fin;
     private IntegerProperty id_categoria;
+    private StringProperty nombre_categoria;
 
     public Evento(int id, String nombre, String descripcion, String lugar, String fecha_inicio,
-            String fecha_fin, int id_categoria) {
+            String fecha_fin, int id_categoria, String nombre_categoria) {
         this.id = new SimpleIntegerProperty(id);
         this.nombre = new SimpleStringProperty(nombre);
         this.descripcion = new SimpleStringProperty(descripcion);
@@ -27,6 +28,7 @@ public class Evento {
         this.fecha_inicio = new SimpleStringProperty(fecha_inicio);
         this.fecha_fin = new SimpleStringProperty(fecha_inicio);
         this.id_categoria = new SimpleIntegerProperty(id_categoria);
+        this.nombre_categoria = new SimpleStringProperty(nombre_categoria);
     }
 
     public int getId() {
@@ -85,6 +87,13 @@ public class Evento {
         this.id_categoria.set(id_categoria);
     }
 
+    public String getNombre_categoria() {
+        return nombre_categoria.get();
+    }
+
+    public void setNombre_categoria(String nombre_categoria) {
+        this.nombre_categoria.set(nombre_categoria);
+    }
     /**
      * Devolverá un array con todos los eventos de la BD o null si no hay ningún
      * evento
@@ -97,11 +106,11 @@ public class Evento {
         Connection con = ConexionBD.getConection();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO");
+            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id");
             while (rs.next()) {
                 listaEventos.add(new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
                         rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
-                        rs.getInt("id_categoria")));
+                        rs.getInt("id_categoria"), rs.getString("CATEGORIA.nombre")));
             }
             con.close();
         } catch (Exception e) {
@@ -120,11 +129,11 @@ public class Evento {
         Evento e = null;
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO WHERE id = " + id);
+            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO WHERE id = " + id + " INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id");
             if (rs.next()) {
                 e = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
                         rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
-                        rs.getInt("id_categoria"));
+                        rs.getInt("id_categoria"), rs.getString("CATEGORIA.nombre"));
             } else {
                 e = null;
             }
@@ -149,11 +158,11 @@ public class Evento {
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(
-                    "SELECT * FROM EVENTO WHERE nombre LIKE '%" + txt + "%' OR descripcion LIKE '%" + txt + "%'");
+                    "SELECT * FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE nombre LIKE '%" + txt + "%' OR descripcion LIKE '%" + txt + "%'");
             while (rs.next()) {
                 Evento e = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
                         rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
-                        rs.getInt("id_categoria"));
+                        rs.getInt("id_categoria"), rs.getString("CATEGORIA.nombre"));
                 listaEventos.add(e);
             }
             con.close();
@@ -169,7 +178,7 @@ public class Evento {
      * @return el último ID asignado en la tabla de Evento o 0 si la tabla está
      *         vacía.
      */
-    public int getLastId() {
+    public static int getLastId() {
         Connection con = ConexionBD.getConection();
         int id = 0;
         try {
@@ -213,7 +222,7 @@ public class Evento {
             } else {
                 // Insertar
                 st.executeUpdate(
-                        "INSERT INTO EVENTO (id, nombre, descripcion, lugar, fecha, fecha_inicio, fecha_fin, id_categoria) VALUES ("
+                        "INSERT INTO EVENTO (id, nombre, descripcion, lugar, fecha_inicio, fecha_fin, id_categoria) VALUES ("
                                 + this.getId() + ", '" + this.getNombre() + "', '" + this.getDescripcion() + "', '"
                                 + this.getLugar()
                                 + "', '" + this.getFecha_inicio() + "', '"
@@ -263,9 +272,7 @@ public class Evento {
      * 
      */
     public Categoria getCategoria() {
-        // Connection con = ConexionBD.getConection();
-        Categoria c = null;
-
+        Categoria c = Categoria.get(getId_categoria());
         return c;
     }
 

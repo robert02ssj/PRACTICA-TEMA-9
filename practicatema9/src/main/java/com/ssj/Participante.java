@@ -93,7 +93,7 @@ public class Participante extends Persona {
      * @return El último ID asignado en la tabla de Participante o 0 si la tabla
      *         está vacía.
      */
-    public int getLastId() {
+    public static int getLastId() {
         Connection con = ConexionBD.getConection();
         int id = 0;
         try {
@@ -134,11 +134,12 @@ public class Participante extends Persona {
                 resultado = 1;
             } else {
                 // Insertar
+                st.executeUpdate("INSERT INTO PERSONA (id, nombre, apellido1, apellido2) VALUES (" + this.getId()
+                + ", '" + this.getNombre() + "', '" + this.getApellido1() + "', '" + this.getApellido2()
+                + "')");
                 st.executeUpdate(
                         "INSERT INTO PARTICIPANTE (id,email) VALUES (" + this.getId() + ", '" + this.getEmail() + "')");
-                st.executeUpdate("INSERT INTO PERSONA (id, nombre, apellido1, apellido2) VALUES (" + this.getId()
-                        + ", '" + this.getNombre() + "', '" + this.getApellido1() + "', '" + this.getApellido2()
-                        + "')");
+               
                 resultado = 1;
             }
             con.close();
@@ -163,6 +164,7 @@ public class Participante extends Persona {
             ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPANTE WHERE id = " + this.getId());
             if (rs.next()) {
                 st.executeUpdate("DELETE FROM PARTICIPANTE WHERE id = " + this.getId());
+                st.executeUpdate("DELETE FROM PERSONA WHERE id = " + this.getId());
                 resultado = 1;
             }
             con.close();

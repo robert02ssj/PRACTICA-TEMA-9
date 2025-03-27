@@ -2,6 +2,7 @@ package com.ssj;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -65,7 +66,7 @@ public class ParticipanteController {
 
         Apellido1Col.setOnEditCommit(event -> {
             Participante Participante = event.getRowValue();
-            Participante.setNombre(event.getNewValue());
+            Participante.setApellido1(event.getNewValue());
             saveRow(Participante);
         });
 
@@ -108,6 +109,35 @@ public class ParticipanteController {
     
     public void saveRow(Participante Participante) {
         Participante.save();
+    }
+    @FXML
+    public void addRow() throws IOException {
+        // Creamos un usuario vacío
+        Participante filaVacia = new Participante(Persona.getLastId()+1, "", "", "", "");
+
+        // Añadimos la fila vacía al ObservableList (esto lo añadirá también al TableView)
+        listaParticipantes.add(filaVacia);
+
+        // Seleccionamos la fila recién añadida y hacemos que sea editable
+        tableView.getSelectionModel().select(filaVacia);
+
+        
+
+    }
+
+        @FXML
+    public void deleteRow() {
+        // Pedimos confirmación con un Alert antes de continuar
+        Alert a = new Alert(AlertType.CONFIRMATION);
+        a.setTitle("Confirmación");
+        a.setHeaderText("¿Estás seguro de que quieres borrar este Evento?");
+        Optional<ButtonType> result = a.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // Obtenemos el usuario seleccionado
+            Participante Parti = (Participante) tableView.getSelectionModel().getSelectedItem();
+            Parti.delete();  // Lo borramos de la base de datos
+            listaParticipantes.remove(Parti);  // Lo borramos del ObservableList y del TableView
+        }
     }
     
 }

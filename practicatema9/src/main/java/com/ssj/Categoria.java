@@ -97,7 +97,7 @@ public class Categoria {
      * @param id el ID de la categoría a buscar.
      * @return la categoría encontrada o null si no existe.
      */
-    public Categoria get(int id) {
+    public static Categoria get(int id) {
         Connection con = ConexionBD.getConection();
         Categoria c = null;
         try {
@@ -118,7 +118,7 @@ public class Categoria {
      * 
      * @return el último ID asignado o 0 si la tabla está vacía.
      */
-    public int getLastId() {
+    public static int getLastId() {
         Connection con = ConexionBD.getConection();
         int id = 0;
         try {
