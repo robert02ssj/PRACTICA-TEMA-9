@@ -1,7 +1,6 @@
 package com.ssj;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -12,11 +11,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-
-import javafx.fxml.FXML;
 
 public class ArtistaController {
 

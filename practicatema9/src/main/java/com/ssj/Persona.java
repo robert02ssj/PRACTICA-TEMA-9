@@ -7,7 +7,6 @@ import java.sql.*;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 
 public abstract class Persona {
     private IntegerProperty id;
