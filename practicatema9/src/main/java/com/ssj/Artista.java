@@ -49,7 +49,7 @@ public class Artista extends Persona {
     @Override
     public void Participa(int idEvento, int idPersona, String fecha) {
         Connection con = ConexionBD.getConection();
-        try {
+        try { 
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPA WHERE id_evento = " + idEvento + " AND id_persona = " + idPersona);
             if (rs.next()) {
