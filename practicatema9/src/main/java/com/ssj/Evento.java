@@ -93,6 +93,19 @@ public class Evento {
 
     public void setNombre_categoria(String nombre_categoria) {
         this.nombre_categoria.set(nombre_categoria);
+        Connection con = ConexionBD.getConection();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT id FROM CATEGORIA WHERE nombre = '" + nombre_categoria + "'");
+            if (rs.next()) {
+                this.id_categoria.set(rs.getInt("id"));
+            } else {
+                this.id_categoria.set(1);
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
     }
     /**
      * Devolverá un array con todos los eventos de la BD o null si no hay ningún

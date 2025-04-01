@@ -40,7 +40,6 @@
           <TableColumn fx:id="LugarCol" prefWidth="144.0" text="Lugar" />
           <TableColumn fx:id="FechaIniCol" prefWidth="86.0" text="FechaIni" />
           <TableColumn fx:id="FechaFinCol" prefWidth="87.0" text="FechaFin" />
-          <TableColumn fx:id="idCatCol" prefWidth="75.0" text="id Categoria" />
           <TableColumn fx:id="NombreCateCol" prefWidth="75.0" text="Nombre Categoria" />
         </columns>
       </TableView>

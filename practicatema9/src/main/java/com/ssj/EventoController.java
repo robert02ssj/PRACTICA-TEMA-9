@@ -3,6 +3,7 @@ package com.ssj;
 import java.io.IOException;
 import java.util.Optional;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
@@ -38,14 +40,12 @@ public class EventoController {
     TableColumn<Evento, String> FechaFinCol;
 
     @FXML
-    TableColumn<Evento, Integer> idCatCol;
-
-    @FXML
     TableColumn<Evento, String> NombreCateCol;
 
 
 
     private ObservableList<Evento> listaEventos = FXCollections.observableArrayList();
+    private ObservableList<String> listaCategorias = FXCollections.observableArrayList();
 
 
     @FXML
@@ -56,7 +56,6 @@ public class EventoController {
         LugarCol.setCellValueFactory(new PropertyValueFactory<>("lugar"));
         FechaIniCol.setCellValueFactory(new PropertyValueFactory<>("fecha_inicio"));
         FechaFinCol.setCellValueFactory(new PropertyValueFactory<>("fecha_fin"));
-        idCatCol.setCellValueFactory(new PropertyValueFactory<>("id_categoria"));
         NombreCateCol.setCellValueFactory(new PropertyValueFactory<>("nombre_categoria"));
         
         tableView.setItems(listaEventos);
@@ -66,8 +65,12 @@ public class EventoController {
         LugarCol.setCellFactory(TextFieldTableCell.forTableColumn());
         FechaIniCol.setCellFactory(TextFieldTableCell.forTableColumn());
         FechaFinCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        idCatCol.setCellFactory(TextFieldTableCell.forTableColumn(new javafx.util.converter.IntegerStringConverter()));
-        NombreCateCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        NombreCateCol.setCellFactory(ComboBoxTableCell.forTableColumn(listaCategorias));
+        NombreCateCol.setOnEditCommit(event -> {
+            Evento evento = event.getRowValue();
+            evento.setNombre_categoria(event.getNewValue());
+            saveRow(evento);
+        });
 
         nombreColumn.setOnEditCommit(event -> {
             Evento Evento = event.getRowValue();
@@ -99,11 +102,6 @@ public class EventoController {
             saveRow(Evento);
         });
 
-        idCatCol.setOnEditCommit(event -> {
-            Evento Evento = event.getRowValue();
-            Evento.setId_categoria(event.getNewValue());
-            saveRow(Evento);
-        });
 
         NombreCateCol.setOnEditCommit(event -> {
             Evento Evento = event.getRowValue();
@@ -119,6 +117,8 @@ public class EventoController {
 
     public void loadData(){
         Evento.getAll(listaEventos);
+        listaCategorias.clear();
+        Categoria.getNombres(listaCategorias);
     }
 
     @FXML

@@ -185,4 +185,24 @@ public class Categoria {
         }
         return resultado;
     }
+
+    /**
+     * Devuelve una Lista con todos los nombres de categorías.
+     * 
+     * @return una lista de nombres de categorías.
+     */
+
+     public static void getNombres(ObservableList<String> listaCategorias) {
+        Connection con = ConexionBD.getConection();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT nombre FROM CATEGORIA");
+            while (rs.next()) {
+                listaCategorias.add(rs.getString("nombre"));
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
+    }
 }

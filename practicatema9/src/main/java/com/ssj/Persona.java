@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Observable;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
@@ -159,10 +161,25 @@ public abstract class Persona {
     }
 
     /**
-     * Devolverá la lista de eventos a los que una persona está apuntada.
+     * Devolverá la lista de eventos a los que una persona está apuntada. mirando la tabla Participa
      * 
      */
-    public void getEventos() {
+    public ArrayList<Evento> getEventos() {
+        Connection con = ConexionBD.getConection();
+        ArrayList<Evento> listaEventos = new ArrayList<>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT id_evento FROM Participa WHERE id_persona = " + this.getId());
+            while (rs.next()) {
+                Evento e = new Evento(rs.getInt("id_evento"), "", "", "", "0000-00-00", "0000-00-00", 1, "");
+                e.get(rs.getInt("id_evento"));
+                listaEventos.add(e);
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
+        return listaEventos;
     }
 
     /**

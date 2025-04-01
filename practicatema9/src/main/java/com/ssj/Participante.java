@@ -174,4 +174,28 @@ public class Participante extends Persona {
         }
         return resultado;
     }
+/**
+ * * Almacenará en la BD la participación de un participante en un evento en la tabla participa. Si ya
+ * existía la participación, la modificará. Devolverá 0 si no se ha podido
+ * @param idEvento
+ * @param idPersona
+ * @param fecha
+ */
+    public void Participa(int idEvento, int idPersona, String fecha) {
+        Connection con = ConexionBD.getConection();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPA WHERE id_evento = " + idEvento + " AND id_persona = " + idPersona);
+            if (rs.next()) {
+                // Modificar
+                st.executeUpdate("UPDATE PARTICIPA SET fecha = '" + fecha + "' WHERE id_evento = " + idEvento + " AND id_persona = " + idPersona);
+            } else {
+                // Insertar
+                st.executeUpdate("INSERT INTO PARTICIPA (id_evento, id_persona, fecha) VALUES (" + idEvento + ", " + idPersona + ", '" + fecha + "')");
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
+    }
 }
