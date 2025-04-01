@@ -186,5 +186,5 @@ public abstract class Persona {
      * Método abstracto para
      * almacenar la participación de una persona en un evento
      */
-    public abstract void participa(int idEvento, int idPersona, String fecha);
+    public abstract void Participa(int idEvento, int idPersona, String fecha);
 }

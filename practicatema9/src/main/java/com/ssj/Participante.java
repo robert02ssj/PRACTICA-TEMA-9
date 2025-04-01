@@ -74,7 +74,7 @@ public class Participante extends Persona {
         Participante p = null;
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPANTE WHERE id = " + id + " INNER JOIN PERSONA ON PARTICIPANTE.id = PERSONA.id");
+            ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPANTE INNER JOIN PERSONA ON PARTICIPANTE.id = PERSONA.id WHERE PARTICIPANTE.id = " + id);
             if (rs.next()) {
                 p = new Participante(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido1"),
                         rs.getString("apellido2"), rs.getString("email"));
@@ -193,6 +193,17 @@ public class Participante extends Persona {
                 // Insertar
                 st.executeUpdate("INSERT INTO PARTICIPA (id_evento, id_persona, fecha) VALUES (" + idEvento + ", " + idPersona + ", '" + fecha + "')");
             }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
+    }
+
+    public void eliminarParticipacion(int idEvento, int idPersona) {
+        Connection con = ConexionBD.getConection();
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("DELETE FROM PARTICIPA WHERE id_evento = " + idEvento + " AND id_persona = " + idPersona);
             con.close();
         } catch (Exception e) {
             System.out.println("Error en SQL " + e);

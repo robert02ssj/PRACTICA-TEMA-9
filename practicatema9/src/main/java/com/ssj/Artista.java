@@ -46,8 +46,34 @@ public class Artista extends Persona {
         this.obra_destacada.set(obra_destacada);
     }
 
-    public void participa(int idEvento, int idPersona, String fecha) {
+    @Override
+    public void Participa(int idEvento, int idPersona, String fecha) {
+        Connection con = ConexionBD.getConection();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPA WHERE id_evento = " + idEvento + " AND id_persona = " + idPersona);
+            if (rs.next()) {
+                // Modificar
+                st.executeUpdate("UPDATE PARTICIPA SET fecha = '" + fecha + "' WHERE id_evento = " + idEvento + " AND id_persona = " + idPersona);
+            } else {
+                // Insertar
+                st.executeUpdate("INSERT INTO PARTICIPA (id_evento, id_persona, fecha) VALUES (" + idEvento + ", " + idPersona + ", '" + fecha + "')");
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
+    }
 
+    public void eliminarParticipacion(int idEvento, int idPersona) {
+        Connection con = ConexionBD.getConection();
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("DELETE FROM PARTICIPA WHERE id_evento = " + idEvento + " AND id_persona = " + idPersona);
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -56,6 +57,9 @@ public class ArtistaController {
 
     @FXML
     private Label obraLabel;
+
+    @FXML
+    private VBox eventosBox;
 
     private ObservableList<Persona> listaArtistas = FXCollections.observableArrayList();
 
@@ -106,13 +110,9 @@ public class ArtistaController {
             Artista.setObraDestacada(event.getNewValue());
             saveRow(Artista);
         });
-
-
         
         tableView.setItems(listaArtistas);
         loadData();
-
-
     }
 
     public void loadData(){
@@ -146,11 +146,9 @@ public class ArtistaController {
 
         // Seleccionamos la fila recién añadida y hacemos que sea editable
         tableView.getSelectionModel().select(filaVacia);
-        
-
     }
 
-        @FXML
+    @FXML
     public void deleteRow() {
         // Pedimos confirmación con un Alert antes de continuar
         Alert a = new Alert(AlertType.CONFIRMATION);
@@ -166,6 +164,26 @@ public class ArtistaController {
     }
 
     @FXML
+    private void cargarEventos(Artista artista) {
+        eventosBox.getChildren().clear(); // Limpiar el VBox antes de cargar los eventos
+        ObservableList<Evento> listaEventos = FXCollections.observableArrayList();
+        Evento.getAll(listaEventos); // Obtener todos los eventos
+
+        for (Evento evento : listaEventos) {
+            CheckBox checkBox = new CheckBox(evento.getNombre());
+            checkBox.setSelected(artista.getEventos().stream().anyMatch(e -> e.getId() == evento.getId()));
+            checkBox.setOnAction(e -> {
+                if (checkBox.isSelected()) {
+                    artista.Participa(evento.getId(), artista.getId(), "2023-01-01"); // Guardar participación
+                } else {
+                    artista.eliminarParticipacion(evento.getId(), artista.getId()); // Eliminar participación
+                }
+            });
+            eventosBox.getChildren().add(checkBox);
+        }
+    }
+
+    @FXML
     private void verArtista() {
         Artista seleccionado = (Artista) tableView.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
@@ -174,6 +192,7 @@ public class ArtistaController {
             apellido2Label.setText("Apellido 2: " + seleccionado.getApellido2());
             fotoLabel.setText("Fotografía: " + seleccionado.getFotografia());
             obraLabel.setText("Obra Destacada: " + seleccionado.getObraDestacada());
+            cargarEventos(seleccionado); // Llamar al método para cargar los eventos
             detailsBox.setVisible(true);
             detailsBox.setManaged(true);
         }
@@ -181,8 +200,23 @@ public class ArtistaController {
 
     @FXML
     private void cerrarDetalles() {
+        Artista artista = (Artista) tableView.getSelectionModel().getSelectedItem();
+        if (artista != null) {
+            for (var node : eventosBox.getChildren()) {
+                if (node instanceof CheckBox) {
+                    CheckBox checkBox = (CheckBox) node;
+                    Evento evento = Evento.getByName(checkBox.getText()); // Obtener el evento por su nombre
+                    if (evento != null) {
+                        if (checkBox.isSelected()) {
+                            artista.Participa(evento.getId(), artista.getId(), "2023-01-01"); // Guardar participación
+                        } else {
+                            artista.eliminarParticipacion(evento.getId(), artista.getId()); // Eliminar participación
+                        }
+                    }
+                }
+            }
+        }
         detailsBox.setVisible(false);
         detailsBox.setManaged(false);
     }
-    
 }

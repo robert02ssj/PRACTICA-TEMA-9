@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.CheckBox;
 
 public class ParticipanteController {
 
@@ -50,6 +51,9 @@ public class ParticipanteController {
 
     @FXML
     private Label emailLabel;
+
+    @FXML
+    private VBox eventosBox;
 
     private ObservableList<Persona> listaParticipantes = FXCollections.observableArrayList();
 
@@ -110,6 +114,7 @@ public class ParticipanteController {
             apellido1Label.setText("Apellido 1: " + seleccionado.getApellido1());
             apellido2Label.setText("Apellido 2: " + seleccionado.getApellido2());
             emailLabel.setText("Email: " + seleccionado.getEmail());
+            cargarEventos(seleccionado); // Llamar al método para cargar los eventos
             detailsBox.setVisible(true);
             detailsBox.setManaged(true);
         }
@@ -117,6 +122,22 @@ public class ParticipanteController {
 
     @FXML
     private void cerrarDetalles() {
+        Participante participante = (Participante) tableView.getSelectionModel().getSelectedItem();
+        if (participante != null) {
+            for (var node : eventosBox.getChildren()) {
+                if (node instanceof CheckBox) {
+                    CheckBox checkBox = (CheckBox) node;
+                    Evento evento = Evento.getByName(checkBox.getText()); // Obtener el evento por su nombre
+                    if (evento != null) {
+                        if (checkBox.isSelected()) {
+                            participante.Participa(evento.getId(), participante.getId(), "2023-01-01"); // Guardar participación
+                        } else {
+                            participante.eliminarParticipacion(evento.getId(), participante.getId()); // Eliminar participación
+                        }
+                    }
+                }
+            }
+        }
         detailsBox.setVisible(false);
         detailsBox.setManaged(false);
     }
@@ -166,6 +187,26 @@ public class ParticipanteController {
             Participante Parti = (Participante) tableView.getSelectionModel().getSelectedItem();
             Parti.delete();  // Lo borramos de la base de datos
             listaParticipantes.remove(Parti);  // Lo borramos del ObservableList y del TableView
+        }
+    }
+
+    @FXML
+    private void cargarEventos(Participante participante) {
+        eventosBox.getChildren().clear(); // Limpiar el VBox antes de cargar los eventos
+        ObservableList<Evento> listaEventos = FXCollections.observableArrayList();
+        Evento.getAll(listaEventos); // Obtener todos los eventos
+
+        for (Evento evento : listaEventos) {
+            CheckBox checkBox = new CheckBox(evento.getNombre());
+            checkBox.setSelected(participante.getEventos().stream().anyMatch(e -> e.getId() == evento.getId()));
+            checkBox.setOnAction(e -> {
+                if (checkBox.isSelected()) {
+                    participante.Participa(evento.getId(), participante.getId(), "2023-01-01"); // Fecha de ejemplo
+                } else {
+                    // Aquí puedes implementar la lógica para eliminar la participación si es necesario
+                }
+            });
+            eventosBox.getChildren().add(checkBox);
         }
     }
     

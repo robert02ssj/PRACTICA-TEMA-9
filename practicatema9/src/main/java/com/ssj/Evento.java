@@ -142,7 +142,7 @@ public class Evento {
         Evento e = null;
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO WHERE id = " + id + " INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id");
+            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE EVENTO.id = " + id);
             if (rs.next()) {
                 e = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
                         rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
@@ -287,6 +287,24 @@ public class Evento {
     public Categoria getCategoria() {
         Categoria c = Categoria.get(getId_categoria());
         return c;
+    }
+
+    public static Evento getByName(String nombre) {
+        Connection con = ConexionBD.getConection();
+        Evento evento = null;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE EVENTO.nombre = '" + nombre + "'");
+            if (rs.next()) {
+                evento = new Evento(rs.getInt("EVENTO.id"), rs.getString("nombre"), rs.getString("descripcion"),
+                        rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
+                        rs.getInt("id_categoria"), rs.getString("CATEGORIA.nombre"));
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
+        return evento;
     }
 
 }

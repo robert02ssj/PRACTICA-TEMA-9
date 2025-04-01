@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
@@ -52,6 +53,11 @@
                   <Label fx:id="apellido1Label" text="Apellido 1: " />
                   <Label fx:id="apellido2Label" text="Apellido 2: " />
                   <Label fx:id="emailLabel" text="Email: " />
+                  <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="300.0">
+                     <content>
+                        <VBox fx:id="eventosBox" spacing="10" />
+                     </content>
+                  </ScrollPane>
                   <Button fx:id="cerrarDetalles" mnemonicParsing="false" onAction="#cerrarDetalles" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cerrar" />
                </children>
             </VBox>
