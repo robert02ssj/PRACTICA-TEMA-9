@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="536.0" prefWidth="708.0" spacing="10" style="-fx-padding: 0; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ParticipanteController">
+<VBox alignment="TOP_CENTER" prefHeight="636.0" prefWidth="732.0" spacing="10" style="-fx-padding: 0; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ParticipanteController">
    <children>
-      <MenuBar prefHeight="30.0" style="-fx-padding: 0;">
+      <MenuBar prefHeight="30.0" style="-fx-padding: 0; -fx-background-color: #ffffff; -fx-border-color: #dcdcdc;">
         <menus>
           <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos">
                <items>
@@ -34,20 +34,34 @@
             </Menu>
         </menus>
       </MenuBar>
-      <TableView fx:id="tableView" editable="true" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 5;">
-        <columns>
-          <TableColumn fx:id="IdPartColumn" prefWidth="56.0" text="ID" />
-          <TableColumn fx:id="NombrePartCol" prefWidth="137.60003662109375" text="Nombre" />          
-          <TableColumn fx:id="Apellido1Col" prefWidth="137.99998779296874" text="Apellido" />
-          <TableColumn fx:id="Apellido2Col" prefWidth="137.99998474121094" text="Apellido" />
-          <TableColumn fx:id="EmailCol" prefWidth="137.99998474121094" text="Email" />
-        </columns>
-      </TableView>
+      <HBox spacing="10" HBox.hgrow="ALWAYS">
+         <children>
+            <TableView fx:id="tableView" editable="true" prefHeight="691.0" prefWidth="732.0" style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 5;" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="IdPartColumn" prefWidth="56.0" text="ID" />
+                <TableColumn fx:id="NombrePartCol" prefWidth="137.60003662109375" text="Nombre" />          
+                <TableColumn fx:id="Apellido1Col" prefWidth="137.99998779296874" text="Apellido" />
+                <TableColumn fx:id="Apellido2Col" prefWidth="137.99998474121094" text="Apellido" />
+                <TableColumn fx:id="EmailCol" prefWidth="137.99998474121094" text="Email" />
+              </columns>
+            </TableView>
+            <VBox fx:id="detailsBox" alignment="CENTER" managed="false" spacing="10" style="-fx-padding: 20; -fx-background-color: rgba(255, 255, 255, 0.9); -fx-border-color: #dcdcdc; -fx-border-radius: 5;" visible="false" maxWidth="400" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Detalles del Participante" />
+                  <Label fx:id="nombreLabel" text="Nombre: " />
+                  <Label fx:id="apellido1Label" text="Apellido 1: " />
+                  <Label fx:id="apellido2Label" text="Apellido 2: " />
+                  <Label fx:id="emailLabel" text="Email: " />
+                  <Button fx:id="cerrarDetalles" mnemonicParsing="false" onAction="#cerrarDetalles" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cerrar" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
       <HBox alignment="CENTER" spacing="15" style="-fx-padding: 10;">
          <children>
-            <Button fx:id="anadirpart" mnemonicParsing="false" onAction="#addRow" text="Añadir Participante" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-            <Label prefHeight="18.0" prefWidth="62.0" />
-            <Button fx:id="BorrarPart" mnemonicParsing="false" onAction="#deleteRow" text="Borrar" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
+            <Button fx:id="anadirpart" mnemonicParsing="false" onAction="#addRow" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Añadir Participante" />
+            <Button fx:id="BorrarPart" mnemonicParsing="false" onAction="#deleteRow" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Borrar" />
+            <Button fx:id="VerMas" mnemonicParsing="false" onAction="#verParticipante" style="-fx-background-color: #009900;" text="Ver Detalles" textFill="WHITE" />
          </children>
       </HBox>
    </children>

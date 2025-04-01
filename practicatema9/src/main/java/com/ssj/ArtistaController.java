@@ -13,6 +13,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
 
 public class ArtistaController {
 
@@ -37,9 +39,23 @@ public class ArtistaController {
     @FXML
     TableColumn<Artista, String> ObraCol;
 
-    
+    @FXML
+    private VBox detailsBox;
 
+    @FXML
+    private Label nombreLabel;
 
+    @FXML
+    private Label apellido1Label;
+
+    @FXML
+    private Label apellido2Label;
+
+    @FXML
+    private Label fotoLabel;
+
+    @FXML
+    private Label obraLabel;
 
     private ObservableList<Persona> listaArtistas = FXCollections.observableArrayList();
 
@@ -149,6 +165,24 @@ public class ArtistaController {
         }
     }
 
+    @FXML
+    private void verArtista() {
+        Artista seleccionado = (Artista) tableView.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            nombreLabel.setText("Nombre: " + seleccionado.getNombre());
+            apellido1Label.setText("Apellido 1: " + seleccionado.getApellido1());
+            apellido2Label.setText("Apellido 2: " + seleccionado.getApellido2());
+            fotoLabel.setText("Fotografía: " + seleccionado.getFotografia());
+            obraLabel.setText("Obra Destacada: " + seleccionado.getObraDestacada());
+            detailsBox.setVisible(true);
+            detailsBox.setManaged(true);
+        }
+    }
 
+    @FXML
+    private void cerrarDetalles() {
+        detailsBox.setVisible(false);
+        detailsBox.setManaged(false);
+    }
     
 }

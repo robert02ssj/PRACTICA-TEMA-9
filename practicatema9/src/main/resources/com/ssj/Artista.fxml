@@ -8,45 +8,66 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="498.0" prefWidth="751.0" spacing="10" style="-fx-padding: 0; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ArtistaController">
+<StackPane alignment="TOP_CENTER" prefHeight="640.0" prefWidth="781.0" style="-fx-padding: 0; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ArtistaController">
    <children>
-      <MenuBar prefHeight="30.0" style="-fx-padding: 0;">
-        <menus>
-          <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos">
-               <items>
-                  <MenuItem fx:id="cambev" mnemonicParsing="false" onAction="#CambiarEventos" text="Ver Eventos" />
-               </items>
-          </Menu>
-          <Menu fx:id="Categoria" mnemonicParsing="false" text="Categorias">
-               <items>
-                  <MenuItem fx:id="cambiarcat" mnemonicParsing="false" onAction="#CambiarCategoria" text="Ver Categorias" />
-               </items>
-            </Menu>
-          <Menu fx:id="Participantes" mnemonicParsing="false" text="Participantes">
-               <items>
-                  <MenuItem fx:id="cambiarpart" mnemonicParsing="false" onAction="#CambiarParticipantes" text="Ver Participantes" />
-               </items>
-            </Menu>
-          <Menu mnemonicParsing="false" text="Artistas" />
-        </menus>
-      </MenuBar>
-      <TableView fx:id="tableView" editable="true" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 5;">
-        <columns>
-          <TableColumn fx:id="IdColArt" prefWidth="56.0" text="ID" />
-          <TableColumn fx:id="ArtName" prefWidth="137.60003662109375" text="Nombre" />          
-          <TableColumn fx:id="Apellido1ColArt" prefWidth="137.99998779296874" text="Apellido 1" />
-          <TableColumn fx:id="Apellido2ColArt" prefWidth="137.99998474121094" text="Apellido 2" />
-          <TableColumn fx:id="FotoColArt" prefWidth="137.99998474121094" text="Foto" />
-          <TableColumn fx:id="ObraCol" prefWidth="137.99998474121094" text="Obra Destacada" />
-        </columns>
-      </TableView>
-      <HBox alignment="CENTER" spacing="15" style="-fx-padding: 10;">
+      <VBox alignment="TOP_CENTER" spacing="10">
          <children>
-            <Button fx:id="anadirart" mnemonicParsing="false" onAction="#addRow" text="Añadir Artista" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-            <Button fx:id="deleteart" mnemonicParsing="false" onAction="#deleteRow" text="Borrar" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
+            <MenuBar prefHeight="30.0" style="-fx-padding: 0; -fx-background-color: #ffffff; -fx-border-color: #dcdcdc;">
+               <menus>
+                  <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos">
+                     <items>
+                        <MenuItem fx:id="cambev" mnemonicParsing="false" onAction="#CambiarEventos" text="Ver Eventos" />
+                     </items>
+                  </Menu>
+                  <Menu fx:id="Categoria" mnemonicParsing="false" text="Categorias">
+                     <items>
+                        <MenuItem fx:id="cambiarcat" mnemonicParsing="false" onAction="#CambiarCategoria" text="Ver Categorias" />
+                     </items>
+                  </Menu>
+                  <Menu fx:id="Participantes" mnemonicParsing="false" text="Participantes">
+                     <items>
+                        <MenuItem fx:id="cambiarpart" mnemonicParsing="false" onAction="#CambiarParticipantes" text="Ver Participantes" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Artistas" />
+               </menus>
+            </MenuBar>
+            <HBox spacing="10" HBox.hgrow="ALWAYS">
+               <children>
+                  <TableView fx:id="tableView" editable="true" prefHeight="691.0" prefWidth="732.0" style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 5;" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="IdColArt" prefWidth="56.0" text="ID" />
+                        <TableColumn fx:id="ArtName" prefWidth="137.60003662109375" text="Nombre" />          
+                        <TableColumn fx:id="Apellido1ColArt" prefWidth="137.99998779296874" text="Apellido 1" />
+                        <TableColumn fx:id="Apellido2ColArt" prefWidth="137.99998474121094" text="Apellido 2" />
+                        <TableColumn fx:id="FotoColArt" prefWidth="137.99998474121094" text="Foto" />
+                        <TableColumn fx:id="ObraCol" prefWidth="137.99998474121094" text="Obra Destacada" />
+                     </columns>
+                  </TableView>
+                  <VBox fx:id="detailsBox" alignment="CENTER" managed="false" spacing="10" style="-fx-padding: 20; -fx-background-color: rgba(255, 255, 255, 0.9); -fx-border-color: #dcdcdc; -fx-border-radius: 5;" visible="false" maxWidth="400" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="Detalles del Artista" />
+                        <Label fx:id="nombreLabel" text="Nombre: " />
+                        <Label fx:id="apellido1Label" text="Apellido 1: " />
+                        <Label fx:id="apellido2Label" text="Apellido 2: " />
+                        <Label fx:id="fotoLabel" text="Fotografía: " />
+                        <Label fx:id="obraLabel" text="Obra Destacada: " />
+                        <Button fx:id="cerrarDetalles" mnemonicParsing="false" onAction="#cerrarDetalles" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cerrar" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="15" style="-fx-padding: 10;">
+               <children>
+                  <Button fx:id="anadirart" mnemonicParsing="false" onAction="#addRow" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Añadir Artista" />
+                  <Button fx:id="deleteart" mnemonicParsing="false" onAction="#deleteRow" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Borrar" />
+                  <Button fx:id="VerMas" mnemonicParsing="false" onAction="#verArtista" style="-fx-background-color: #009900;" text="Ver Detalles" textFill="WHITE" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </children>
-</VBox>
+</StackPane>

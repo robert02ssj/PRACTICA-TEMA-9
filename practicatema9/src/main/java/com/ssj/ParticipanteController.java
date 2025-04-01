@@ -13,6 +13,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
 
 public class ParticipanteController {
 
@@ -34,8 +36,20 @@ public class ParticipanteController {
     @FXML
     TableColumn<Participante, String> EmailCol;
 
+    @FXML
+    private VBox detailsBox;
 
+    @FXML
+    private Label nombreLabel;
 
+    @FXML
+    private Label apellido1Label;
+
+    @FXML
+    private Label apellido2Label;
+
+    @FXML
+    private Label emailLabel;
 
     private ObservableList<Persona> listaParticipantes = FXCollections.observableArrayList();
 
@@ -86,6 +100,25 @@ public class ParticipanteController {
 
     public void loadData(){
         Participante.getAll(listaParticipantes);
+    }
+
+    @FXML
+    private void verParticipante() {
+        Participante seleccionado = (Participante) tableView.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            nombreLabel.setText("Nombre: " + seleccionado.getNombre());
+            apellido1Label.setText("Apellido 1: " + seleccionado.getApellido1());
+            apellido2Label.setText("Apellido 2: " + seleccionado.getApellido2());
+            emailLabel.setText("Email: " + seleccionado.getEmail());
+            detailsBox.setVisible(true);
+            detailsBox.setManaged(true);
+        }
+    }
+
+    @FXML
+    private void cerrarDetalles() {
+        detailsBox.setVisible(false);
+        detailsBox.setManaged(false);
     }
 
     @FXML

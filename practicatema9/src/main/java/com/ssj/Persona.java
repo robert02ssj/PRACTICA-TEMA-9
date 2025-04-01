@@ -169,7 +169,7 @@ public abstract class Persona {
         ArrayList<Evento> listaEventos = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT id_evento FROM Participa WHERE id_persona = " + this.getId());
+            ResultSet rs = st.executeQuery("SELECT id_evento FROM PARTICIPA WHERE id_persona = " + this.getId());
             while (rs.next()) {
                 Evento e = new Evento(rs.getInt("id_evento"), "", "", "", "0000-00-00", "0000-00-00", 1, "");
                 e.get(rs.getInt("id_evento"));
