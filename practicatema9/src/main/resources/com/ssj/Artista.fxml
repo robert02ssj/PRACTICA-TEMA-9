@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <StackPane alignment="TOP_CENTER" prefHeight="640.0" prefWidth="781.0" style="-fx-padding: 0; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ArtistaController">
    <children>
@@ -19,21 +21,50 @@
             <MenuBar prefHeight="30.0" style="-fx-padding: 0; -fx-background-color: #ffffff; -fx-border-color: #dcdcdc;">
                <menus>
                   <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos">
+                     <graphic>
+                        <ImageView fitWidth="35" fitHeight="35">
+                           <image>
+                              <Image url="@icons/eventos.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                      <items>
                         <MenuItem fx:id="cambev" mnemonicParsing="false" onAction="#CambiarEventos" text="Ver Eventos" />
                      </items>
                   </Menu>
                   <Menu fx:id="Categoria" mnemonicParsing="false" text="Categorias">
+                     <graphic>
+                        <ImageView fitWidth="35" fitHeight="35">
+                           <image>
+                              <Image url="@icons/categorias.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                      <items>
                         <MenuItem fx:id="cambiarcat" mnemonicParsing="false" onAction="#CambiarCategoria" text="Ver Categorias" />
                      </items>
                   </Menu>
                   <Menu fx:id="Participantes" mnemonicParsing="false" text="Participantes">
+                     <graphic>
+                        <ImageView fitWidth="35" fitHeight="35">
+                           <image>
+                              <Image url="@icons/participantes.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                      <items>
                         <MenuItem fx:id="cambiarpart" mnemonicParsing="false" onAction="#CambiarParticipantes" text="Ver Participantes" />
                      </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="Artistas" />
+                  <Menu mnemonicParsing="false" text="Artistas">
+                     <graphic>
+                        <ImageView fitWidth="35" fitHeight="35">
+                           <image>
+                              <Image url="@icons/artistas.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Menu>
                </menus>
             </MenuBar>
             <HBox spacing="10" HBox.hgrow="ALWAYS">
@@ -58,7 +89,7 @@
                         <Label fx:id="obraLabel" text="Obra Destacada: " />
                         <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="300.0">
                            <content>
-                              <VBox fx:id="eventosBox" spacing="10" />
+                              <VBox fx:id="eventosBox" prefHeight="362.0" prefWidth="22.0" spacing="10" />
                            </content>
                         </ScrollPane>
                         <Button fx:id="cerrarDetalles" mnemonicParsing="false" onAction="#cerrarDetalles" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cerrar" />

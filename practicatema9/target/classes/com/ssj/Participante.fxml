@@ -8,6 +8,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -16,19 +18,48 @@
       <MenuBar prefHeight="30.0" style="-fx-padding: 0; -fx-background-color: #ffffff; -fx-border-color: #dcdcdc;">
         <menus>
           <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos">
+               <graphic>
+                  <ImageView fitWidth="35" fitHeight="35">
+                     <image>
+                        <Image url="@icons/eventos.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                <items>
                   <MenuItem fx:id="cambev" mnemonicParsing="false" onAction="#CambiarEventos" text="Ver Eventos" />
                </items>
           </Menu>
             <Menu fx:id="Categoria" mnemonicParsing="false" text="Categorias">
+               <graphic>
+                  <ImageView fitWidth="35" fitHeight="35">
+                     <image>
+                        <Image url="@icons/categorias.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                <items>
                   <MenuItem fx:id="cambiarcat" mnemonicParsing="false" onAction="#CambiarCategoria" text="Ver Categorias" />
                </items>
             </Menu>
 
-          <Menu mnemonicParsing="false" text="Participantes" />
+          <Menu mnemonicParsing="false" text="Participantes">
+               <graphic>
+                  <ImageView fitWidth="35" fitHeight="35">
+                     <image>
+                        <Image url="@icons/participantes.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+          </Menu>
 
           <Menu fx:id="Artistas" mnemonicParsing="false" text="Artistas">
+               <graphic>
+                  <ImageView fitWidth="35" fitHeight="35">
+                     <image>
+                        <Image url="@icons/artistas.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                <items>
                   <MenuItem fx:id="cambiarart" mnemonicParsing="false" onAction="#CambiarArtistas" text="Ver Artistas" />
                </items>
@@ -46,16 +77,16 @@
                 <TableColumn fx:id="EmailCol" prefWidth="137.99998474121094" text="Email" />
               </columns>
             </TableView>
-            <VBox fx:id="detailsBox" alignment="CENTER" managed="false" spacing="10" style="-fx-padding: 20; -fx-background-color: rgba(255, 255, 255, 0.9); -fx-border-color: #dcdcdc; -fx-border-radius: 5;" visible="false" maxWidth="400" VBox.vgrow="ALWAYS">
+            <VBox fx:id="detailsBox" alignment="CENTER" managed="false" maxWidth="400" spacing="10" style="-fx-padding: 20; -fx-background-color: rgba(255, 255, 255, 0.9); -fx-border-color: #dcdcdc; -fx-border-radius: 5;" visible="false" VBox.vgrow="ALWAYS">
                <children>
                   <Label style="-fx-font-weight: bold;" text="Detalles del Participante" />
                   <Label fx:id="nombreLabel" text="Nombre: " />
                   <Label fx:id="apellido1Label" text="Apellido 1: " />
                   <Label fx:id="apellido2Label" text="Apellido 2: " />
                   <Label fx:id="emailLabel" text="Email: " />
-                  <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="300.0">
+                  <ScrollPane fitToWidth="true" prefHeight="468.0" prefWidth="36.0">
                      <content>
-                        <VBox fx:id="eventosBox" spacing="10" />
+                        <VBox fx:id="eventosBox" prefHeight="362.0" prefWidth="22.0" spacing="10" />
                      </content>
                   </ScrollPane>
                   <Button fx:id="cerrarDetalles" mnemonicParsing="false" onAction="#cerrarDetalles" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cerrar" />

@@ -9,23 +9,54 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding: 0; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.CategoriaController">
    <children>
       <MenuBar prefHeight="30.0" style="-fx-padding: 0; -fx-background-color: #ffffff; -fx-border-color: #dcdcdc;">
         <menus>
           <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos">
+               <graphic>
+                  <ImageView fitWidth="35" fitHeight="35">
+                     <image>
+                        <Image url="@icons/eventos.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                <items>
                   <MenuItem fx:id="cambev" mnemonicParsing="false" onAction="#CambiarEventos" text="Ver Eventos" />
                </items>
           </Menu>
-            <Menu fx:id="Categoria" mnemonicParsing="false" text="Categorias" />
+            <Menu fx:id="Categoria" mnemonicParsing="false" text="Categorias">
+               <graphic>
+                  <ImageView fitWidth="35" fitHeight="35">
+                     <image>
+                        <Image url="@icons/categorias.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Menu>
           <Menu fx:id="Participantes" mnemonicParsing="false" text="Participantes">
+               <graphic>
+                  <ImageView fitWidth="35" fitHeight="35">
+                     <image>
+                        <Image url="@icons/participantes.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                <items>
                   <MenuItem fx:id="cambiarpart" mnemonicParsing="false" onAction="#CambiarParticipantes" text="Ver Participantes" />
                </items>
             </Menu>
           <Menu fx:id="Artistas" mnemonicParsing="false" text="Artistas">
+               <graphic>
+                  <ImageView fitWidth="35" fitHeight="35">
+                     <image>
+                        <Image url="@icons/artistas.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                <items>
                   <MenuItem fx:id="cambiarart" mnemonicParsing="false" onAction="#CambiarArtistas" text="Ver Artistas" />
                </items>
