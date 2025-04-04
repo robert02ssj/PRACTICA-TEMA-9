@@ -8,6 +8,7 @@ CREATE TABLE PERSONA (
     apellido1 VARCHAR(100) NOT NULL,
     apellido2 VARCHAR(100)
 );
+CREATE FULLTEXT INDEX Completo ON PERSONA(nombre, apellido1, apellido2);
 
 
 CREATE TABLE PARTICIPANTE (
@@ -36,6 +37,7 @@ CREATE TABLE EVENTO (
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE NOT NULL,
     id_categoria INT,
+
     FOREIGN KEY (id_categoria) REFERENCES CATEGORIA(id) ON DELETE CASCADE
 );
 
@@ -47,6 +49,9 @@ CREATE TABLE PARTICIPA (
     FOREIGN KEY (id_persona) REFERENCES PERSONA(id) ON DELETE CASCADE,
     FOREIGN KEY (id_evento) REFERENCES EVENTO(id) ON DELETE CASCADE
 );
+
+
+
 
 
 

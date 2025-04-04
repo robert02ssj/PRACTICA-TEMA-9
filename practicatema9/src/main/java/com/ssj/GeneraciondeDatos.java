@@ -16,12 +16,12 @@ public class GeneraciondeDatos {
     private static final String DB_PASSWORD = "root"; // Cambia esto a tu contraseña de base de datos
 
     // --- Configuración de Generación ---
-    private static final int NUM_EVENTOS_EXISTENTES = 200;
-    private static final int NUM_PERSONAS_TOTAL = 100200; // 200 Participantes + 200 Artistas
-    private static final int NUM_PARTICIPANTES = 100000;
-    private static final int NUM_ARTISTAS = 200;
-    private static final int NUM_PARTICIPACIONES = 500000;
-    private static final int BATCH_SIZE = 1000; // Tamaño del lote para inserciones
+    private static final int NUM_EVENTOS_EXISTENTES = 100;
+    private static final int NUM_PERSONAS_TOTAL = 10100; // 200 Participantes + 200 Artistas
+    private static final int NUM_PARTICIPANTES = 10000;
+    private static final int NUM_ARTISTAS = 100;
+    private static final int NUM_PARTICIPACIONES = 100000;
+    private static final int BATCH_SIZE = 500; // Tamaño del lote para inserciones
 
     // --- Datos de Ejemplo ---
     private static final List<String> NOMBRES_ES = List.of("Alejandro", "Maria", "Carlos", "Lucia", "David", "Laura", "Javier", "Ana", "Sergio", "Marta", "Pablo", "Elena", "Raul", "Claudia", "Adrian", "Isabel", "Fernando", "Patricia", "Ivan", "Sara", "Alberto", "Cristina", "Ruben", "Sofia", "Miguel", "Paula", "Alvaro", "Irene", "Hugo", "Nuria", "Manuel", "Carmen", "Luis", "Rocio", "Oscar", "Silvia", "Mario", "Eva", "Andres", "Alicia", "Daniel", "Beatriz", "Victor", "Natalia", "Francisco", "Clara", "Enrique", "Teresa", "Guillermo", "Julia", "Angel", "Lorena", "Emilio", "Veronica", "Jaime", "Sandra", "Tomas", "Noelia", "Eduardo", "Raquel", "Marcos", "Ines", "Alfonso", "Victoria", "Esteban", "Pilar", "Diego", "Angela", "Jorge", "Lidia", "Hector", "Monica", "Ignacio", "Carolina", "Samuel", "Nerea", "Gabriel", "Rosa", "Vicente", "Amparo", "Felix", "Agata", "Pedro", "Marina", "Antonio", "Elisa", "Ricardo", "Celia", "Joaquin", "Belen", "Juan");

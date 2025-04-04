@@ -216,7 +216,7 @@ public class ParticipanteController {
         eventosBox.getChildren().clear(); // Limpiar el VBox antes de cargar los eventos
         ObservableList<Evento> listaEventos = FXCollections.observableArrayList();
         Evento.getAll(listaEventos); // Obtener todos los eventos
-
+        
         for (Evento evento : listaEventos) {
             CheckBox checkBox = new CheckBox(evento.getNombre());
             checkBox.setSelected(participante.getEventos().stream().anyMatch(e -> e.getId() == evento.getId()));
