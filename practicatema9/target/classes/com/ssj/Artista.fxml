@@ -8,21 +8,22 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
 <StackPane alignment="TOP_CENTER" prefHeight="640.0" prefWidth="781.0" style="-fx-padding: 0; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ssj.ArtistaController">
    <children>
       <VBox alignment="TOP_CENTER" spacing="10">
          <children>
-            <MenuBar prefHeight="30.0" style="-fx-padding: 0; -fx-background-color: #ffffff; -fx-border-color: #dcdcdc;">
+            <MenuBar prefHeight="30.0" style="-fx-padding: 0; -fx-background-color: #f0c48a; -fx-border-color: #dcdcdc;">
                <menus>
                   <Menu fx:id="eventos" mnemonicParsing="false" text="Eventos">
                      <graphic>
-                        <ImageView fitWidth="35" fitHeight="35">
+                        <ImageView fitHeight="35" fitWidth="35">
                            <image>
                               <Image url="@icons/eventos.png" />
                            </image>
@@ -34,7 +35,7 @@
                   </Menu>
                   <Menu fx:id="Categoria" mnemonicParsing="false" text="Categorias">
                      <graphic>
-                        <ImageView fitWidth="35" fitHeight="35">
+                        <ImageView fitHeight="35" fitWidth="35">
                            <image>
                               <Image url="@icons/categorias.png" />
                            </image>
@@ -46,7 +47,7 @@
                   </Menu>
                   <Menu fx:id="Participantes" mnemonicParsing="false" text="Participantes">
                      <graphic>
-                        <ImageView fitWidth="35" fitHeight="35">
+                        <ImageView fitHeight="35" fitWidth="35">
                            <image>
                               <Image url="@icons/participantes.png" />
                            </image>
@@ -58,7 +59,7 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Artistas">
                      <graphic>
-                        <ImageView fitWidth="35" fitHeight="35">
+                        <ImageView fitHeight="35" fitWidth="35">
                            <image>
                               <Image url="@icons/artistas.png" />
                            </image>
@@ -67,6 +68,11 @@
                   </Menu>
                </menus>
             </MenuBar>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="Busqueda" onKeyReleased="#Busqueda" />
+               </children>
+            </HBox>
             <HBox spacing="10" HBox.hgrow="ALWAYS">
                <children>
                   <TableView fx:id="tableView" editable="true" prefHeight="691.0" prefWidth="732.0" style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 5;" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
@@ -79,7 +85,7 @@
                         <TableColumn fx:id="ObraCol" prefWidth="137.99998474121094" text="Obra Destacada" />
                      </columns>
                   </TableView>
-                  <VBox fx:id="detailsBox" alignment="CENTER" managed="false" spacing="10" style="-fx-padding: 20; -fx-background-color: rgba(255, 255, 255, 0.9); -fx-border-color: #dcdcdc; -fx-border-radius: 5;" visible="false" maxWidth="400" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="detailsBox" alignment="CENTER" managed="false" maxWidth="400" spacing="10" style="-fx-padding: 20; -fx-background-color: rgba(255, 255, 255, 0.9); -fx-border-color: #dcdcdc; -fx-border-radius: 5;" visible="false" VBox.vgrow="ALWAYS">
                      <children>
                         <Label style="-fx-font-weight: bold;" text="Detalles del Artista" />
                         <Label fx:id="nombreLabel" text="Nombre: " />

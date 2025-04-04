@@ -113,6 +113,22 @@ public class Categoria {
         return c;
     }
 
+    public static int get(String txt, ObservableList<Categoria> listaCategorias) {
+        Connection con = ConexionBD.getConection();
+        int id = 0;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM CATEGORIA WHERE id LIKE '%" + txt + "%' OR nombre LIKE '%" + txt + "%' OR descripcion LIKE '%" + txt + "%'");
+            while (rs.next()) {
+                listaCategorias.add(new Categoria(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion")));
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
+        return id;
+    }
+
     /**
      * Obtiene el último ID asignado en la tabla de categorías o 0 si la tabla está vacía.
      * 

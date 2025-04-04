@@ -11,11 +11,16 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 
 public class CategoriaController {
+
+
+    @FXML
+    TextField Busqueda;
 
     @FXML
     TableView tableView;
@@ -110,5 +115,17 @@ public class CategoriaController {
             Cate.delete();  // Lo borramos de la base de datos
             listaCategorias.remove(Cate);  // Lo borramos del ObservableList y del TableView
         }
+    }
+
+    @FXML
+    public void Busqueda() throws IOException {
+        String busqueda = Busqueda.getText();
+        if (busqueda.isEmpty()) {
+            loadData(); // Si el campo de búsqueda está vacío, recargamos todos los eventos
+        } else {
+            listaCategorias.clear(); // Limpiamos la lista actual
+            Categoria.get(busqueda, listaCategorias); // Buscamos eventos que coincidan con la búsqueda
+        }
+        
     }
 }

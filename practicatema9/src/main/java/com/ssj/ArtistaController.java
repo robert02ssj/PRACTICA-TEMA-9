@@ -12,12 +12,16 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
 public class ArtistaController {
+
+    @FXML
+    TextField Busqueda;
 
     @FXML
     TableView tableView;
@@ -218,5 +222,18 @@ public class ArtistaController {
         }
         detailsBox.setVisible(false);
         detailsBox.setManaged(false);
+    }
+
+
+    @FXML
+    public void Busqueda() throws IOException {
+        String busqueda = Busqueda.getText();
+        if (busqueda.isEmpty()) {
+            loadData(); // Si el campo de búsqueda está vacío, recargamos todos los eventos
+        } else {
+            listaArtistas.clear(); // Limpiamos la lista actual
+            Artista.get(busqueda, listaArtistas); // Buscamos eventos que coincidan con la búsqueda
+        }
+        
     }
 }

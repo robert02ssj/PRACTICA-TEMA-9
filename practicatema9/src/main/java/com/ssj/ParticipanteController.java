@@ -11,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.CheckBox;
 
 public class ParticipanteController {
+
+    @FXML
+    TextField Busqueda;
 
     @FXML
     TableView tableView;
@@ -208,6 +212,18 @@ public class ParticipanteController {
             });
             eventosBox.getChildren().add(checkBox);
         }
+    }
+
+    @FXML
+    public void Busqueda() throws IOException {
+        String busqueda = Busqueda.getText();
+        if (busqueda.isEmpty()) {
+            loadData(); // Si el campo de búsqueda está vacío, recargamos todos los eventos
+        } else {
+            listaParticipantes.clear(); // Limpiamos la lista actual
+            Participante.get(busqueda, listaParticipantes); // Buscamos eventos que coincidan con la búsqueda
+        }
+        
     }
     
 }

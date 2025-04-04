@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 
@@ -20,6 +21,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("Eventos"), 890, 600);
         stage.setMaximized(true); // Ventana maximizada
         stage.setTitle("Gestion de Eventos");
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("/com/ssj/icons/iconoAPP.png"))); // Establecer ícono personalizado
         stage.setScene(scene);
         stage.show();
     }

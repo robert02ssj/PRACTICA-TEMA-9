@@ -3,13 +3,15 @@ package com.ssj;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
-public class Artista extends Persona {
+public class Artista extends Persona implements Exportable {
     private IntegerProperty id;
     private StringProperty fotografia;
     private StringProperty obra_destacada;
@@ -121,6 +123,27 @@ public class Artista extends Persona {
         return a;
     }
 
+
+    public static int get(String txt, ObservableList<Persona> listaArtistas) {
+        Connection con = ConexionBD.getConection();
+        int id = 0;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(
+                    "SELECT * FROM ARTISTA INNER JOIN PERSONA ON ARTISTA.id = PERSONA.id WHERE nombre LIKE '%" + txt
+                            + "%' OR apellido1 LIKE '%" + txt + "%' OR apellido2 LIKE '%" + txt + "%'");
+            while (rs.next()) {
+                listaArtistas.add(new Artista(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido1"),
+                        rs.getString("apellido2"), rs.getString("fotografia"), rs.getString("obra_destacada")));
+                id++;
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
+        return id;
+    }
+
     /**
      * Devolverá el último ID asignado en la tabla de Artista o 0 si la tabla
      * está vacía.
@@ -218,5 +241,30 @@ public class Artista extends Persona {
             resultado = 0;
         }
         return resultado;
+    }
+/**
+ * * Exporta los datos del artista a un archivo de texto.
+ */
+    @Override
+    public void exportToText(ObservableList<?> listaArtistas) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: ").append(getId()).append("\n");
+        sb.append("Nombre: ").append(getNombre()).append("\n");
+        sb.append("Apellido 1: ").append(getApellido1()).append("\n");
+        sb.append("Apellido 2: ").append(getApellido2()).append("\n");
+        sb.append("Fotografía: ").append(getFotografia()).append("\n");
+        sb.append("Obra destacada: ").append(getObraDestacada()).append("\n");
+        // Aquí puedes guardar el contenido de sb en un archivo de texto
+        // Por ejemplo, usando FileWriter:
+        try (FileWriter writer = new FileWriter("artista_" + getId() + ".txt")) {
+            writer.write(sb.toString());
+        } catch (IOException e) {
+            System.out.println("Error al exportar a texto: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void exportToPDF() {
+
     }
 }

@@ -3,13 +3,15 @@ package com.ssj;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
-public class Evento {
+public class Evento implements Exportable {
     private IntegerProperty id;
     private StringProperty nombre;
     private StringProperty descripcion;
@@ -18,6 +20,7 @@ public class Evento {
     private StringProperty fecha_fin;
     private IntegerProperty id_categoria;
     private StringProperty nombre_categoria;
+    private IntegerProperty numeroParticipantes;
 
     public Evento(int id, String nombre, String descripcion, String lugar, String fecha_inicio,
             String fecha_fin, int id_categoria, String nombre_categoria) {
@@ -29,7 +32,9 @@ public class Evento {
         this.fecha_fin = new SimpleStringProperty(fecha_inicio);
         this.id_categoria = new SimpleIntegerProperty(id_categoria);
         this.nombre_categoria = new SimpleStringProperty(nombre_categoria);
+        this.numeroParticipantes = new SimpleIntegerProperty(0);
     }
+    
 
     public int getId() {
         return id.get();
@@ -107,6 +112,15 @@ public class Evento {
             System.out.println("Error en SQL " + e);
         }
     }
+
+    public int getNumeroParticipantes() {
+        return numeroParticipantes.get();
+    }
+
+    public void setNumeroParticipantes(int numeroParticipantes) {
+        this.numeroParticipantes.set(numeroParticipantes);
+    }
+
     /**
      * Devolverá un array con todos los eventos de la BD o null si no hay ningún
      * evento
@@ -119,11 +133,14 @@ public class Evento {
         Connection con = ConexionBD.getConection();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id");
+            ResultSet rs = st.executeQuery(
+                    "SELECT EVENTO.*, CATEGORIA.nombre AS categoria_nombre,(SELECT COUNT(*) FROM PARTICIPA WHERE PARTICIPA.id_evento = EVENTO.id) AS numero_participantes FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id");
             while (rs.next()) {
-                listaEventos.add(new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
+                Evento evento = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
                         rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
-                        rs.getInt("id_categoria"), rs.getString("CATEGORIA.nombre")));
+                        rs.getInt("id_categoria"), rs.getString("categoria_nombre"));
+                evento.setNumeroParticipantes(rs.getInt("numero_participantes"));
+                listaEventos.add(evento);
             }
             con.close();
         } catch (Exception e) {
@@ -142,7 +159,9 @@ public class Evento {
         Evento e = null;
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE EVENTO.id = " + id);
+            ResultSet rs = st.executeQuery(
+                    "SELECT * FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE EVENTO.id = "
+                            + id);
             if (rs.next()) {
                 e = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
                         rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
@@ -166,12 +185,13 @@ public class Evento {
      * @return el array de eventos o null si no hay eventos
      *
      */
-    public void get(String txt, ObservableList<Evento> listaEventos) {
+    public static void get(String txt, ObservableList<Evento> listaEventos) {
         Connection con = ConexionBD.getConection();
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(
-                    "SELECT * FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE nombre LIKE '%" + txt + "%' OR descripcion LIKE '%" + txt + "%'");
+                    "SELECT * FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE EVENTO.nombre LIKE '%"
+                            + txt + "%' OR EVENTO.descripcion LIKE '%" + txt + "%'");
             while (rs.next()) {
                 Evento e = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
                         rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
@@ -294,7 +314,9 @@ public class Evento {
         Evento evento = null;
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE EVENTO.nombre = '" + nombre + "'");
+            ResultSet rs = st.executeQuery(
+                    "SELECT * FROM EVENTO JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE EVENTO.nombre = '"
+                            + nombre + "'");
             if (rs.next()) {
                 evento = new Evento(rs.getInt("EVENTO.id"), rs.getString("nombre"), rs.getString("descripcion"),
                         rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
@@ -307,4 +329,40 @@ public class Evento {
         return evento;
     }
 
+    /**
+     * Exportará la lista de los eventos que se han desarrollado, detallando para
+     * cada uno los artistas y el público asistente.
+     * 
+     */
+    @Override
+    public void exportToText(ObservableList<?> listaEventos) {
+        try {
+        FileWriter fw = new FileWriter("Eventos.txt", true);
+        for (int i = 0; i < listaEventos.size(); i++) {
+            listaEventos.get(i);
+            Evento evento = (Evento) listaEventos.get(i);
+            StringBuilder sb = new StringBuilder();
+            sb.append("Evento: ").append(evento.getNombre()).append("\n");
+            sb.append("Descripción: ").append(evento.getDescripcion()).append("\n");
+            sb.append("Lugar: ").append(evento.getLugar()).append("\n");
+            sb.append("Fecha de inicio: ").append(evento.getFecha_inicio()).append("\n");
+            sb.append("Fecha de fin: ").append(evento.getFecha_fin()).append("\n");
+            sb.append("Categoría: ").append(evento.getNombre_categoria()).append("\n");
+            sb.append("Número de participantes: ").append(evento.getNumeroParticipantes()).append("\n");
+                fw.write(sb.toString());
+                fw.write("\n");
+
+        }
+        fw.close();
+            } catch (IOException e) {
+                System.out.println("Error al crear el archivo: " + e.getMessage());
+            }
+            
+        }
+    
+
+    @Override
+    public void exportToPDF() {
+
+    }
 }
