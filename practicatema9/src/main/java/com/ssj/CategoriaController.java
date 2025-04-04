@@ -107,7 +107,7 @@ public class CategoriaController {
         // Pedimos confirmación con un Alert antes de continuar
         Alert a = new Alert(AlertType.CONFIRMATION);
         a.setTitle("Confirmación");
-        a.setHeaderText("¿Estás seguro de que quieres borrar este Evento?");
+        a.setHeaderText("¿Estás seguro de que quieres borrar esta Categoria?");
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() == ButtonType.OK) {
             // Obtenemos el usuario seleccionado
@@ -121,6 +121,7 @@ public class CategoriaController {
     public void Busqueda() throws IOException {
         String busqueda = Busqueda.getText();
         if (busqueda.isEmpty()) {
+            listaCategorias.clear(); // Limpiamos la lista actual
             loadData(); // Si el campo de búsqueda está vacío, recargamos todos los eventos
         } else {
             listaCategorias.clear(); // Limpiamos la lista actual

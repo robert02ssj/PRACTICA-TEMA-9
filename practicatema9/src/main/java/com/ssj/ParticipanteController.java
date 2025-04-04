@@ -17,6 +17,9 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.CheckBox;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Button;
 
 public class ParticipanteController {
 
@@ -58,6 +61,12 @@ public class ParticipanteController {
 
     @FXML
     private VBox eventosBox;
+
+    @FXML
+    private Button Exportar;
+
+    @FXML
+    private Button VerMas;
 
     private ObservableList<Persona> listaParticipantes = FXCollections.observableArrayList();
 
@@ -103,7 +112,15 @@ public class ParticipanteController {
         tableView.setItems(listaParticipantes);
         loadData();
 
-
+        // Listener para detectar selección en la tabla
+        tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
+            @Override
+            public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+                boolean isRowSelected = newValue != null;
+                Exportar.setVisible(isRowSelected); // Muestra el botón "Exportar" si hay una fila seleccionada
+                VerMas.setVisible(isRowSelected);   // Muestra el botón "Ver Detalles" si hay una fila seleccionada
+            }
+        });
     }
 
     public void loadData(){
@@ -184,7 +201,7 @@ public class ParticipanteController {
         // Pedimos confirmación con un Alert antes de continuar
         Alert a = new Alert(AlertType.CONFIRMATION);
         a.setTitle("Confirmación");
-        a.setHeaderText("¿Estás seguro de que quieres borrar este Evento?");
+        a.setHeaderText("¿Estás seguro de que quieres borrar este Participante?");
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() == ButtonType.OK) {
             // Obtenemos el usuario seleccionado
@@ -218,12 +235,32 @@ public class ParticipanteController {
     public void Busqueda() throws IOException {
         String busqueda = Busqueda.getText();
         if (busqueda.isEmpty()) {
+            listaParticipantes.clear(); // Limpiamos la lista actual
             loadData(); // Si el campo de búsqueda está vacío, recargamos todos los eventos
         } else {
             listaParticipantes.clear(); // Limpiamos la lista actual
             Participante.get(busqueda, listaParticipantes); // Buscamos eventos que coincidan con la búsqueda
         }
-        
     }
     
+
+    @FXML
+    public void exportar(){
+        Participante seleccionado = (Participante) tableView.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            seleccionado.exportToText(listaParticipantes); // Llamar al método exportar del participante seleccionado
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Exportación");
+            alert.setHeaderText(null);
+            alert.setContentText("El participante ha sido exportado correctamente.");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, selecciona un participante para exportar.");
+            alert.showAndWait();
+        }
+
+    }
 }

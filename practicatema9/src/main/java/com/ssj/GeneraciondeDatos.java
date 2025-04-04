@@ -17,10 +17,10 @@ public class GeneraciondeDatos {
 
     // --- Configuración de Generación ---
     private static final int NUM_EVENTOS_EXISTENTES = 200;
-    private static final int NUM_PERSONAS_TOTAL = 1000200; // 200 Participantes + 200 Artistas
-    private static final int NUM_PARTICIPANTES = 1000000;
+    private static final int NUM_PERSONAS_TOTAL = 100200; // 200 Participantes + 200 Artistas
+    private static final int NUM_PARTICIPANTES = 100000;
     private static final int NUM_ARTISTAS = 200;
-    private static final int NUM_PARTICIPACIONES = 2000000;
+    private static final int NUM_PARTICIPACIONES = 500000;
     private static final int BATCH_SIZE = 1000; // Tamaño del lote para inserciones
 
     // --- Datos de Ejemplo ---

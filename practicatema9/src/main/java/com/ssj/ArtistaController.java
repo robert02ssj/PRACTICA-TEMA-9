@@ -17,6 +17,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Button;
 
 public class ArtistaController {
 
@@ -64,6 +67,12 @@ public class ArtistaController {
 
     @FXML
     private VBox eventosBox;
+
+    @FXML
+    private Button VerMas;
+
+    @FXML
+    private Button Exportar;
 
     private ObservableList<Persona> listaArtistas = FXCollections.observableArrayList();
 
@@ -117,6 +126,16 @@ public class ArtistaController {
         
         tableView.setItems(listaArtistas);
         loadData();
+
+        // Listener para detectar selección en la tabla
+        tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
+            @Override
+            public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+                boolean isRowSelected = newValue != null;
+                VerMas.setVisible(isRowSelected);   // Muestra el botón "Ver Detalles" si hay una fila seleccionada
+                Exportar.setVisible(isRowSelected); // Muestra el botón "Exportar" si hay una fila seleccionada
+            }
+        });
     }
 
     public void loadData(){
@@ -157,7 +176,7 @@ public class ArtistaController {
         // Pedimos confirmación con un Alert antes de continuar
         Alert a = new Alert(AlertType.CONFIRMATION);
         a.setTitle("Confirmación");
-        a.setHeaderText("¿Estás seguro de que quieres borrar este Evento?");
+        a.setHeaderText("¿Estás seguro de que quieres borrar este Artista?");
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() == ButtonType.OK) {
             // Obtenemos el usuario seleccionado
@@ -178,7 +197,8 @@ public class ArtistaController {
             checkBox.setSelected(artista.getEventos().stream().anyMatch(e -> e.getId() == evento.getId()));
             checkBox.setOnAction(e -> {
                 if (checkBox.isSelected()) {
-                    artista.Participa(evento.getId(), artista.getId(), "2023-01-01"); // Guardar participación
+                    String currentDate = java.time.LocalDate.now().toString(); // Obtener la fecha actual en formato AAAA-MM-DD
+                    artista.Participa(evento.getId(), artista.getId(), currentDate); // Guardar participación
                 } else {
                     artista.eliminarParticipacion(evento.getId(), artista.getId()); // Eliminar participación
                 }
@@ -229,11 +249,31 @@ public class ArtistaController {
     public void Busqueda() throws IOException {
         String busqueda = Busqueda.getText();
         if (busqueda.isEmpty()) {
+            listaArtistas.clear(); // Limpiamos la lista actual
             loadData(); // Si el campo de búsqueda está vacío, recargamos todos los eventos
         } else {
             listaArtistas.clear(); // Limpiamos la lista actual
             Artista.get(busqueda, listaArtistas); // Buscamos eventos que coincidan con la búsqueda
         }
         
+    }
+
+    @FXML
+    public void exportar() {
+        Artista seleccionado = (Artista) tableView.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            seleccionado.exportToText(listaArtistas); // Llamar al método exportar del artista seleccionado
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Exportación");
+            alert.setHeaderText(null);
+            alert.setContentText("El artista ha sido exportado correctamente.");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, selecciona un artista para exportar.");
+            alert.showAndWait();
+        }
     }
 }

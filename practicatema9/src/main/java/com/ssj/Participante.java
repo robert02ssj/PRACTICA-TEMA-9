@@ -243,7 +243,21 @@ public class Participante extends Persona implements Exportable {
         sb.append("Apellido 1: ").append(getApellido1()).append("\n");
         sb.append("Apellido 2: ").append(getApellido2()).append("\n"); 
         sb.append("Email: ").append(getEmail()).append("\n");
-
+        sb.append("Eventos:\n");
+        Connection con = ConexionBD.getConection();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM PARTICIPA INNER JOIN EVENTO ON PARTICIPA.id_evento = EVENTO.id WHERE PARTICIPA.id_persona = " + getId());
+            while (rs.next()) {
+            sb.append("  - Evento ID: ").append(rs.getInt("id_evento"))
+              .append(", Nombre: ").append(rs.getString("nombre"))
+              .append(", Fecha: ").append(rs.getString("fecha"))
+              .append("\n");
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL " + e);
+        }
         try (FileWriter writer = new FileWriter("Participante_" + getId() + ".txt")) {
             writer.write(sb.toString());
         } catch (IOException e) {

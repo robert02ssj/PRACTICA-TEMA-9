@@ -254,8 +254,21 @@ public class Artista extends Persona implements Exportable {
         sb.append("Apellido 2: ").append(getApellido2()).append("\n");
         sb.append("Fotografía: ").append(getFotografia()).append("\n");
         sb.append("Obra destacada: ").append(getObraDestacada()).append("\n");
-        // Aquí puedes guardar el contenido de sb en un archivo de texto
-        // Por ejemplo, usando FileWriter:
+        sb.append("Eventos:\n");
+        Connection con = ConexionBD.getConection();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM EVENTO INNER JOIN PARTICIPA ON EVENTO.id = PARTICIPA.id_evento WHERE PARTICIPA.id_persona = " + getId());
+            while (rs.next()) {
+            sb.append("  - Evento ID: ").append(rs.getInt("id"))
+              .append(", Nombre: ").append(rs.getString("nombre"))
+              .append(", Fecha: ").append(rs.getString("fecha"))
+              .append("\n");
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error en SQL al obtener eventos: " + e);
+        }
         try (FileWriter writer = new FileWriter("artista_" + getId() + ".txt")) {
             writer.write(sb.toString());
         } catch (IOException e) {

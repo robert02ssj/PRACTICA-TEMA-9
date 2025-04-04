@@ -148,8 +148,10 @@ public class EventoController {
 
     @FXML
     public void addRow() throws IOException {
+        String today = java.time.LocalDate.now().toString();
+        System.out.println(today);
         // Creamos un usuario vacío
-        Evento filaVacia = new Evento(Evento.getLastId()+1, "", "", "", "0000-00-00", "0000-00-00", 1, "");
+        Evento filaVacia = new Evento(Evento.getLastId()+1, "", "", "", today, today, 1, "");
 
         // Añadimos la fila vacía al ObservableList (esto lo añadirá también al TableView)
         listaEventos.add(filaVacia);
@@ -182,6 +184,7 @@ public class EventoController {
     public void Busqueda() throws IOException {
         String busqueda = Busqueda.getText();
         if (busqueda.isEmpty()) {
+            listaEventos.clear(); // Limpiamos la lista actual
             loadData(); // Si el campo de búsqueda está vacío, recargamos todos los eventos
         } else {
             listaEventos.clear(); // Limpiamos la lista actual
@@ -191,7 +194,9 @@ public class EventoController {
     }
     @FXML
     public void exportar(){
-        Evento e = new Evento(0, "", "", "", "0000-00-00", "0000-00-00", 1, "");
+        String today = java.time.LocalDate.now().toString();
+        
+        Evento e = new Evento(0, "", "", "", today, today, 1, "");
         loadData();
         e.exportToText(listaEventos);
         System.out.println("Exportado correctamente");

@@ -68,14 +68,14 @@
                   </Menu>
                </menus>
             </MenuBar>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="782.0">
                <children>
                   <TextField fx:id="Busqueda" onKeyReleased="#Busqueda" />
                </children>
             </HBox>
             <HBox spacing="10" HBox.hgrow="ALWAYS">
                <children>
-                  <TableView fx:id="tableView" editable="true" prefHeight="691.0" prefWidth="732.0" style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 5;" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tableView" editable="true" prefHeight="733.0" prefWidth="782.0" style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 5;" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                      <columns>
                         <TableColumn fx:id="IdColArt" prefWidth="56.0" text="ID" />
                         <TableColumn fx:id="ArtName" prefWidth="137.60003662109375" text="Nombre" />          
@@ -107,7 +107,8 @@
                <children>
                   <Button fx:id="anadirart" mnemonicParsing="false" onAction="#addRow" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Añadir Artista" />
                   <Button fx:id="deleteart" mnemonicParsing="false" onAction="#deleteRow" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Borrar" />
-                  <Button fx:id="VerMas" mnemonicParsing="false" onAction="#verArtista" style="-fx-background-color: #009900;" text="Ver Detalles" textFill="WHITE" />
+                  <Button fx:id="VerMas" mnemonicParsing="false" onAction="#verArtista" style="-fx-background-color: #009900;" text="Ver Detalles" textFill="WHITE" visible="false" />
+                  <Button fx:id="Exportar" mnemonicParsing="false" onAction="#exportar" style="-fx-background-color: black; -fx-text-fill: white;" text="Exportar" visible="false" />
                </children>
             </HBox>
          </children>
