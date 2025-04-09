@@ -10,12 +10,38 @@ import java.util.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Clase abstracta que representa una Persona con atributos básicos como id, nombre y apellidos.
+ */
 public abstract class Persona {
+    /**
+     * Identificador único de la persona.
+     */
     private IntegerProperty id;
+
+    /**
+     * Nombre de la persona.
+     */
     private StringProperty nombre;
+
+    /**
+     * Primer apellido de la persona.
+     */
     private StringProperty apellido1;
+
+    /**
+     * Segundo apellido de la persona.
+     */
     private StringProperty apellido2;
 
+    /**
+     * Constructor de la clase Persona.
+     * 
+     * @param id        Identificador único de la persona.
+     * @param nombre    Nombre de la persona.
+     * @param apellido1 Primer apellido de la persona.
+     * @param apellido2 Segundo apellido de la persona.
+     */
     public Persona(int id, String nombre, String apellido1, String apellido2) {
         this.id = new SimpleIntegerProperty(id);
         this.nombre = new SimpleStringProperty(nombre);
@@ -23,39 +49,77 @@ public abstract class Persona {
         this.apellido2 = new SimpleStringProperty(apellido2);
     }
 
+    /**
+     * Obtiene el identificador único de la persona.
+     * 
+     * @return El identificador único de la persona.
+     */
     public int getId() {
         return id.get();
     }
 
+    /**
+     * Establece el identificador único de la persona.
+     * 
+     * @param id El nuevo identificador único de la persona.
+     */
     public void setId(int id) {
         this.id.set(id);
     }
 
+    /**
+     * Obtiene el nombre de la persona.
+     * 
+     * @return El nombre de la persona.
+     */
     public String getNombre() {
         return nombre.get();
     }
 
+    /**
+     * Establece el nombre de la persona.
+     * 
+     * @param nombre El nuevo nombre de la persona.
+     */
     public void setNombre(String nombre) {
         this.nombre.set(nombre);
     }
 
+    /**
+     * Obtiene el primer apellido de la persona.
+     * 
+     * @return El primer apellido de la persona.
+     */
     public String getApellido1() {
         return apellido1.get();
     }
 
+    /**
+     * Establece el primer apellido de la persona.
+     * 
+     * @param apellido1 El nuevo primer apellido de la persona.
+     */
     public void setApellido1(String apellido1) {
         this.apellido1.set(apellido1);
     }
 
+    /**
+     * Obtiene el segundo apellido de la persona.
+     * 
+     * @return El segundo apellido de la persona.
+     */
     public String getApellido2() {
         return apellido2.get();
     }
 
+    /**
+     * Establece el segundo apellido de la persona.
+     * 
+     * @param apellido2 El nuevo segundo apellido de la persona.
+     */
     public void setApellido2(String apellido2) {
         this.apellido2.set(apellido2);
     }
-
-    
 
     /**
      * Devolverá una persona con el id especificado o null si no existe.

@@ -70,26 +70,25 @@ public class ParticipanteController {
 
     private ObservableList<Persona> listaParticipantes = FXCollections.observableArrayList();
 
-
     @FXML
-    private void initialize(){
+    private void initialize() {
         NombrePartCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         IdPartColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         Apellido1Col.setCellValueFactory(new PropertyValueFactory<>("apellido1"));
         Apellido2Col.setCellValueFactory(new PropertyValueFactory<>("apellido2"));
         EmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-        
+
         tableView.setItems(listaParticipantes);
         NombrePartCol.setCellFactory(TextFieldTableCell.forTableColumn());
         Apellido1Col.setCellFactory(TextFieldTableCell.forTableColumn());
         Apellido2Col.setCellFactory(TextFieldTableCell.forTableColumn());
         EmailCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        
+
         NombrePartCol.setOnEditCommit(event -> {
             Participante Participante = event.getRowValue();
             Participante.setNombre(event.getNewValue());
             saveRow(Participante);
-        });  
+        });
 
         Apellido1Col.setOnEditCommit(event -> {
             Participante Participante = event.getRowValue();
@@ -118,15 +117,25 @@ public class ParticipanteController {
             public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
                 boolean isRowSelected = newValue != null;
                 Exportar.setVisible(isRowSelected); // Muestra el botón "Exportar" si hay una fila seleccionada
-                VerMas.setVisible(isRowSelected);   // Muestra el botón "Ver Detalles" si hay una fila seleccionada
+                VerMas.setVisible(isRowSelected); // Muestra el botón "Ver Detalles" si hay una fila seleccionada
             }
         });
     }
 
-    public void loadData(){
+    /**
+     * Método que carga los datos de la base de datos y los añade a la tabla.
+     * 
+     * @throws IOException si ocurre un error al cargar los datos.
+     */
+    public void loadData() {
         Participante.getAll(listaParticipantes);
     }
 
+    /**
+     * Método que se ejecuta al pulsar el botón de añadir. Crea una nueva fila vacía
+     * en la tabla y la selecciona para que sea editable.
+     * 
+     */
     @FXML
     private void verParticipante() {
         Participante seleccionado = (Participante) tableView.getSelectionModel().getSelectedItem();
@@ -141,6 +150,10 @@ public class ParticipanteController {
         }
     }
 
+    /**
+     * Método que se ejecuta al pulsar el botón de cerrar detalles. Guarda los
+     * cambios realizados en los eventos del participante seleccionado.
+     */
     @FXML
     private void cerrarDetalles() {
         Participante participante = (Participante) tableView.getSelectionModel().getSelectedItem();
@@ -151,9 +164,11 @@ public class ParticipanteController {
                     Evento evento = Evento.getByName(checkBox.getText()); // Obtener el evento por su nombre
                     if (evento != null) {
                         if (checkBox.isSelected()) {
-                            participante.Participa(evento.getId(), participante.getId(), "2023-01-01"); // Guardar participación
+                            participante.Participa(evento.getId(), participante.getId(), "2023-01-01"); // Guardar
+                                                                                                        // participación
                         } else {
-                            participante.eliminarParticipacion(evento.getId(), participante.getId()); // Eliminar participación
+                            participante.eliminarParticipacion(evento.getId(), participante.getId()); // Eliminar
+                                                                                                      // participación
                         }
                     }
                 }
@@ -172,31 +187,42 @@ public class ParticipanteController {
     private void CambiarEventos() throws IOException {
         App.setRoot("Eventos");
     }
-    
+
     @FXML
     private void CambiarArtistas() throws IOException {
         App.setRoot("Artista");
     }
-    
+
     public void saveRow(Participante Participante) {
         Participante.save();
     }
+
+    /**
+     * Método que se ejecuta al pulsar el botón de añadir. Crea una nueva fila vacía
+     * en la tabla y la selecciona para que sea editable.
+     * 
+     * @throws IOException
+     */
     @FXML
     public void addRow() throws IOException {
         // Creamos un usuario vacío
-        Participante filaVacia = new Participante(Persona.getLastId()+1, "", "", "", "");
+        Participante filaVacia = new Participante(Persona.getLastId() + 1, "", "", "", "");
 
-        // Añadimos la fila vacía al ObservableList (esto lo añadirá también al TableView)
+        // Añadimos la fila vacía al ObservableList (esto lo añadirá también al
+        // TableView)
         listaParticipantes.add(filaVacia);
 
         // Seleccionamos la fila recién añadida y hacemos que sea editable
         tableView.getSelectionModel().select(filaVacia);
 
-        
-
     }
 
-        @FXML
+    /**
+     * Método que se ejecuta al pulsar el botón de borrar. Borra la fila
+     * seleccionada de la tabla y de la base de datos.
+     * 
+     */
+    @FXML
     public void deleteRow() {
         // Pedimos confirmación con un Alert antes de continuar
         Alert a = new Alert(AlertType.CONFIRMATION);
@@ -206,17 +232,23 @@ public class ParticipanteController {
         if (result.get() == ButtonType.OK) {
             // Obtenemos el usuario seleccionado
             Participante Parti = (Participante) tableView.getSelectionModel().getSelectedItem();
-            Parti.delete();  // Lo borramos de la base de datos
-            listaParticipantes.remove(Parti);  // Lo borramos del ObservableList y del TableView
+            Parti.delete(); // Lo borramos de la base de datos
+            listaParticipantes.remove(Parti); // Lo borramos del ObservableList y del TableView
         }
     }
 
+    /**
+     * Método que carga los eventos del participante seleccionado en el VBox de
+     * eventos.
+     * 
+     * @param participante
+     */
     @FXML
     private void cargarEventos(Participante participante) {
         eventosBox.getChildren().clear(); // Limpiar el VBox antes de cargar los eventos
         ObservableList<Evento> listaEventos = FXCollections.observableArrayList();
         Evento.getAll(listaEventos); // Obtener todos los eventos
-        
+
         for (Evento evento : listaEventos) {
             CheckBox checkBox = new CheckBox(evento.getNombre());
             checkBox.setSelected(participante.getEventos().stream().anyMatch(e -> e.getId() == evento.getId()));
@@ -224,13 +256,20 @@ public class ParticipanteController {
                 if (checkBox.isSelected()) {
                     participante.Participa(evento.getId(), participante.getId(), "2023-01-01"); // Fecha de ejemplo
                 } else {
-                    // Aquí puedes implementar la lógica para eliminar la participación si es necesario
+                    // Aquí puedes implementar la lógica para eliminar la participación si es
+                    // necesario
                 }
             });
             eventosBox.getChildren().add(checkBox);
         }
     }
 
+    /**
+     * Método que se ejecuta al pulsar el botón de buscar. Filtra la tabla según el
+     * texto introducido en el campo de búsqueda.
+     * 
+     * @throws IOException si ocurre un error al cargar los datos.
+     */
     @FXML
     public void Busqueda() throws IOException {
         String busqueda = Busqueda.getText();
@@ -242,10 +281,14 @@ public class ParticipanteController {
             Participante.get(busqueda, listaParticipantes); // Buscamos eventos que coincidan con la búsqueda
         }
     }
-    
 
+    /**
+     * Método que se ejecuta al pulsar el botón de exportar. Exporta el participante
+     * seleccionado a un archivo de texto.
+     * 
+     */
     @FXML
-    public void exportar(){
+    public void exportar() {
         Participante seleccionado = (Participante) tableView.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
             seleccionado.exportToText(listaParticipantes); // Llamar al método exportar del participante seleccionado

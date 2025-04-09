@@ -24,30 +24,46 @@ public class Artista extends Persona implements Exportable {
         this.obra_destacada = new SimpleStringProperty(obra_destacada);
     }
 
+    
+    /** Este método devuelve el id del artista.
+     * @return int
+     */
     public int getId() {
         return id.get();
     }
-
+    /** Este método establece el id del artista.
+     * @param id
+     */
     public void setId(int id) {
         this.id.set(id);
     }
-
+    /** Este método devuelve la fotografia del artista.
+     * @return String
+     */
     public String getFotografia() {
         return fotografia.get();
     }
-
+    /** Este método establece la fotografia del artista.
+     * @param fotografia
+     */
     public void setFotografia(String fotografia) {
         this.fotografia.set(fotografia);
     }
-
+    /** Este método devuelve la obra destacada del artista.
+     * @return String
+     */
     public String getObraDestacada() {
         return obra_destacada.get();
     }
-
+    /** Este método establece la obra destacada del artista.
+     * @param obra_destacada
+     */
     public void setObraDestacada(String obra_destacada) {
         this.obra_destacada.set(obra_destacada);
     }
-
+    /** Este método gestiona la participacion del artista.
+     * 
+     */
     @Override
     public void Participa(int idEvento, int idPersona, String fecha) {
         Connection con = ConexionBD.getConection();
@@ -66,7 +82,9 @@ public class Artista extends Persona implements Exportable {
             System.out.println("Error en SQL " + e);
         }
     }
-
+    /** Este método elimina la participacion del artista.
+     * 
+     */
     public void eliminarParticipacion(int idEvento, int idPersona) {
         Connection con = ConexionBD.getConection();
         try {
@@ -123,7 +141,14 @@ public class Artista extends Persona implements Exportable {
         return a;
     }
 
-
+    /**
+     * Devolverá un array con todos los artistas que contengan el texto
+     * especificado en su nombre o apellidos o 0 si no hay ningún artista.
+     * 
+     * @param txt          Texto a buscar en el nombre o apellidos del artista.
+     * @param listaArtistas Lista donde se almacenarán los artistas encontrados.
+     * @return El número de artistas encontrados.
+     */
     public static int get(String txt, ObservableList<Persona> listaArtistas) {
         Connection con = ConexionBD.getConection();
         int id = 0;

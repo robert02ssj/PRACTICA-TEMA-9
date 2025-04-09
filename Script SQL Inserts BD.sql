@@ -1,4 +1,4 @@
--- 1. Insertar 200 Categorías
+-- 1. Insertar 100 Categorías
 INSERT INTO CATEGORIA (nombre, descripcion) VALUES ('Videojuegos', 'Categoría dedicada a los videojuegos, abarcando desde consolas retro hasta las últimas tendencias en gaming.');
 INSERT INTO CATEGORIA (nombre, descripcion) VALUES ('Manga', 'Espacio para los amantes del manga, con obras clásicas y novedades del mercado japonés.');
 INSERT INTO CATEGORIA (nombre, descripcion) VALUES ('Rol en Vivo', 'Actividades y eventos para los entusiastas del rol en vivo, con escenarios inmersivos y personajes únicos.');
@@ -99,15 +99,8 @@ INSERT INTO CATEGORIA (nombre, descripcion) VALUES ('Coleccionismo', 'Coleccioni
 INSERT INTO CATEGORIA (nombre, descripcion) VALUES ('Ilustracion', 'Ilustracion Categoria 99');
 INSERT INTO CATEGORIA (nombre, descripcion) VALUES ('Cine', 'Cine Categoria 100');
 
--- Eliminar 100 categorías (IDs del 101 al 200)
-DELETE FROM CATEGORIA WHERE id_categoria BETWEEN 101 AND 200;
 
--- Reajustar las claves ajenas en la tabla EVENTO
-UPDATE EVENTO
-SET id_categoria = id_categoria - 100
-WHERE id_categoria > 100;
-
--- 2. Insertar 200 Eventos
+-- 2. Insertar 100 Eventos
 INSERT INTO EVENTO (nombre, descripcion, lugar, fecha_inicio, fecha_fin, id_categoria) VALUES ('Concurso de Realidad Virtual', 'Competencia donde los participantes muestran sus habilidades en experiencias inmersivas de realidad virtual.', 'Espacio Talleres #3', '2025-04-13', '2025-04-13', 47);
 INSERT INTO EVENTO (nombre, descripcion, lugar, fecha_inicio, fecha_fin, id_categoria) VALUES ('Encuentro de Juegos de Mesa', 'Reunión para disfrutar de juegos de mesa clásicos y modernos en un ambiente familiar.', 'Sala Principal #1', '2026-12-28', '2026-12-31', 43);
 INSERT INTO EVENTO (nombre, descripcion, lugar, fecha_inicio, fecha_fin, id_categoria) VALUES ('Congreso de Merchandising', 'Evento para explorar productos exclusivos y coleccionables de diversas franquicias.', 'Pabellon B #3', '2025-10-04', '2025-10-07', 34);
@@ -208,12 +201,4 @@ INSERT INTO EVENTO (nombre, descripcion, lugar, fecha_inicio, fecha_fin, id_cate
 INSERT INTO EVENTO (nombre, descripcion, lugar, fecha_inicio, fecha_fin, id_categoria) VALUES ('Feria de Ciencia Ficcion', 'Feria de Ciencia Ficcion 98', 'Zona Indie #1', '2025-06-15', '2025-06-15', 14);
 INSERT INTO EVENTO (nombre, descripcion, lugar, fecha_inicio, fecha_fin, id_categoria) VALUES ('Taller de Cultura Pop', 'Taller de Cultura Pop 99', 'Zona Indie #1', '2025-07-26', '2025-07-29', 75);
 INSERT INTO EVENTO (nombre, descripcion, lugar, fecha_inicio, fecha_fin, id_categoria) VALUES ('Encuentro de Fandom', 'Encuentro de Fandom 100', 'Auditorio #3', '2025-11-02', '2025-11-04', 80);
-
--- Eliminar 100 eventos (IDs del 101 al 200)
-DELETE FROM EVENTO WHERE id_evento BETWEEN 101 AND 200;
-
--- Reajustar las claves primarias de EVENTO (opcional, si es necesario)
--- ALTER TABLE EVENTO AUTO_INCREMENT = 101;
-
--- Nota: Asegúrate de que las claves primarias y foráneas estén correctamente configuradas en la base de datos.
 

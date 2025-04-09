@@ -113,6 +113,14 @@ public class Categoria {
         return c;
     }
 
+
+    /**
+     * Busca categorías en la base de datos que coincidan con el texto proporcionado y las añade a la lista.
+     * 
+     * @param txt el texto a buscar en las categorías.
+     * @param listaCategorias la lista donde se añadirán las categorías encontradas.
+     * @return el ID de la categoría encontrada o 0 si no se encontró ninguna.
+     */
     public static int get(String txt, ObservableList<Categoria> listaCategorias) {
         Connection con = ConexionBD.getConection();
         int id = 0;

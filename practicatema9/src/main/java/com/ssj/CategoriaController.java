@@ -65,6 +65,11 @@ public class CategoriaController {
 
     }
 
+    /**
+     * Método que carga los datos de la base de datos y los añade a la tabla.
+     * 
+     * @throws IOException si ocurre un error al cargar los datos.
+     */
     public void loadData(){
         Categoria.getAll(listaCategorias);
     }
@@ -88,6 +93,11 @@ public class CategoriaController {
       Categoria.save();
 }
 
+    /**
+     * Método que se ejecuta al pulsar el botón de añadir. Crea una nueva fila vacía en la tabla y la selecciona para que sea editable.
+     * 
+     * @throws IOException si ocurre un error al cargar los datos.
+     */
 @FXML
     public void addRow() throws IOException {
         // Creamos un usuario vacío
@@ -102,6 +112,12 @@ public class CategoriaController {
 
     }
 
+    /**
+     * Método que se ejecuta al pulsar el botón de borrar. Si no hay ningún usuario seleccionado, muestra un mensaje de error.
+     * Si hay un usuario seleccionado, pide confirmación antes de borrarlo.
+     * 
+     * @throws IOException si ocurre un error al cargar los datos.
+     */
         @FXML
     public void deleteRow() {
         // Pedimos confirmación con un Alert antes de continuar
@@ -117,6 +133,12 @@ public class CategoriaController {
         }
     }
 
+    /**
+     * Método que se ejecuta al pulsar el botón de búsqueda. Si el campo de búsqueda está vacío, recarga todos los eventos.
+     * Si no, busca eventos que coincidan con el texto introducido en el campo de búsqueda y los muestra en la tabla.
+     * 
+     * @throws IOException si ocurre un error al cargar los datos.
+     */
     @FXML
     public void Busqueda() throws IOException {
         String busqueda = Busqueda.getText();

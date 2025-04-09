@@ -1,4 +1,5 @@
 package com.ssj;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -6,9 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
+/**
+ * Clase para la generación de datos de prueba en una base de datos MySQL.
+ * Esta clase inserta datos en las tablas PERSONA, PARTICIPANTE, ARTISTA y PARTICIPA.
+ * Incluye métodos para generar nombres, apellidos y fechas aleatorias.
+ */
 public class GeneraciondeDatos {
-
-
 
     // --- Configuración de la Base de Datos ---
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3307/PracticaProg"; // Cambia esto a tu URL de base de datos
@@ -29,6 +34,11 @@ public class GeneraciondeDatos {
 
     private static final Random random = new Random();
 
+    /**
+     * Método principal que ejecuta la generación de datos.
+     * 
+     * @param args Argumentos de línea de comandos (no utilizados).
+     */
     public static void main(String[] args) {
         List<Integer> personaIds = new ArrayList<>();
 
@@ -65,8 +75,13 @@ public class GeneraciondeDatos {
         }
     }
 
-    // --- Métodos de Inserción ---
-
+    /**
+     * Inserta registros en la tabla PERSONA y devuelve los IDs generados.
+     * 
+     * @param conn Conexión a la base de datos.
+     * @return Lista de IDs generados para las personas insertadas.
+     * @throws SQLException Si ocurre un error al interactuar con la base de datos.
+     */
     private static List<Integer> insertPersonas(Connection conn) throws SQLException {
         List<Integer> generatedIds = new ArrayList<>();
         String sql = "INSERT INTO PERSONA (nombre, apellido1, apellido2) VALUES (?, ?, ?)";
@@ -104,6 +119,13 @@ public class GeneraciondeDatos {
         return generatedIds;
     }
 
+    /**
+     * Inserta registros en la tabla PARTICIPANTE utilizando los IDs de personas.
+     * 
+     * @param conn Conexión a la base de datos.
+     * @param personaIds Lista de IDs de personas generados previamente.
+     * @throws SQLException Si ocurre un error al interactuar con la base de datos.
+     */
     private static void insertParticipantes(Connection conn, List<Integer> personaIds) throws SQLException {
         String sql = "INSERT INTO PARTICIPANTE (id, email) VALUES (?, ?)";
         int count = 0;
@@ -128,7 +150,14 @@ public class GeneraciondeDatos {
         }
     }
 
-     private static void insertArtistas(Connection conn, List<Integer> personaIds) throws SQLException {
+    /**
+     * Inserta registros en la tabla ARTISTA utilizando los IDs de personas.
+     * 
+     * @param conn Conexión a la base de datos.
+     * @param personaIds Lista de IDs de personas generados previamente.
+     * @throws SQLException Si ocurre un error al interactuar con la base de datos.
+     */
+    private static void insertArtistas(Connection conn, List<Integer> personaIds) throws SQLException {
         String sql = "INSERT INTO ARTISTA (id, fotografia, obra_destacada) VALUES (?, ?, ?)";
         int count = 0;
 
@@ -152,6 +181,12 @@ public class GeneraciondeDatos {
         }
     }
 
+    /**
+     * Inserta registros en la tabla PARTICIPA, asegurando que no haya duplicados.
+     * 
+     * @param conn Conexión a la base de datos.
+     * @throws SQLException Si ocurre un error al interactuar con la base de datos.
+     */
     private static void insertParticipaciones(Connection conn) throws SQLException {
         String sql = "INSERT INTO PARTICIPA (id_persona, id_evento, fecha) VALUES (?, ?, ?)";
         int count = 0;
@@ -192,7 +227,13 @@ public class GeneraciondeDatos {
         }
     }
 
-    // --- Funciones Auxiliares ---
+    /**
+     * Genera una fecha aleatoria dentro de un rango de años especificado.
+     * 
+     * @param startYear Año inicial del rango.
+     * @param endYear Año final del rango.
+     * @return Fecha aleatoria como un objeto LocalDate.
+     */
     private static LocalDate generateRandomDate(int startYear, int endYear) {
         LocalDate start = LocalDate.of(startYear, 1, 1);
         LocalDate end = LocalDate.of(endYear, 12, 31);

@@ -11,6 +11,12 @@ public class ConexionBD {
     public static String DB_USER;
     public static String DB_PASSWORD;
 
+    /**
+     * Establece la conexión a la base de datos utilizando los parámetros de configuración
+     * especificados en el archivo config.properties.
+     *
+     * @return la conexión a la base de datos.
+     */
     public static Connection getConection() {
         try (FileInputStream fis = new FileInputStream("config.properties")) {
             Properties properties = new Properties();

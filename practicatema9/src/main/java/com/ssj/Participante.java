@@ -11,32 +11,78 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
+/**
+ * Clase que representa a un participante, que hereda de Persona e implementa la interfaz Exportable.
+ */
 public class Participante extends Persona implements Exportable {
+    /**
+     * Identificador único del participante.
+     */
     private IntegerProperty id;
+
+    /**
+     * Correo electrónico del participante.
+     */
     private StringProperty email;
 
+    /**
+     * Constructor de la clase Participante.
+     * 
+     * @param id        Identificador único del participante.
+     * @param nombre    Nombre del participante.
+     * @param apellido1 Primer apellido del participante.
+     * @param apellido2 Segundo apellido del participante.
+     * @param email     Correo electrónico del participante.
+     */
     public Participante(int id, String nombre, String apellido1, String apellido2, String email) {
         super(id, nombre, apellido1, apellido2);
         this.id = new SimpleIntegerProperty(id);
         this.email = new SimpleStringProperty(email);
     }
 
+    /**
+     * Obtiene el identificador único del participante.
+     * 
+     * @return El identificador único del participante.
+     */
     public int getId() {
         return id.get();
     }
 
+    /**
+     * Establece el identificador único del participante.
+     * 
+     * @param id El nuevo identificador único del participante.
+     */
     public void setId(int id) {
         this.id.set(id);
     }
 
+    /**
+     * Obtiene el correo electrónico del participante.
+     * 
+     * @return El correo electrónico del participante.
+     */
     public String getEmail() {
         return email.get();
     }
 
+    /**
+     * Establece el correo electrónico del participante.
+     * 
+     * @param email El nuevo correo electrónico del participante.
+     */
     public void setEmail(String email) {
         this.email.set(email);
     }
 
+    /**
+     * Registra la participación de un participante en un evento.
+     * 
+     * @param idEvento  Identificador del evento.
+     * @param idPersona Identificador del participante.
+     * @param fecha     Fecha de la participación.
+     */
     public void participa(int idEvento, int idPersona, String fecha) {
 
     }
@@ -220,6 +266,12 @@ public class Participante extends Persona implements Exportable {
         }
     }
 
+    /**
+     * Elimina la participación de un participante en un evento.
+     * 
+     * @param idEvento  Identificador del evento.
+     * @param idPersona Identificador del participante.
+     */
     public void eliminarParticipacion(int idEvento, int idPersona) {
         Connection con = ConexionBD.getConection();
         try {
@@ -266,6 +318,10 @@ public class Participante extends Persona implements Exportable {
 
     }
 
+    /**
+     * Exporta los datos del participante a un archivo PDF.
+     * (Implementación pendiente).
+     */
     @Override
     public void exportToPDF() {
 

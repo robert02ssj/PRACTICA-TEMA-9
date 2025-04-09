@@ -159,6 +159,12 @@ public class ArtistaController {
         Artista.save();
     }
 
+
+    /**
+     * Método para añadir una fila vacía al TableView y hacerla editable.
+     * Este método se llama desde el botón "Añadir" en la interfaz gráfica.
+     * @throws IOException
+     */
     @FXML
     public void addRow() throws IOException {
         // Creamos un usuario vacío
@@ -171,6 +177,10 @@ public class ArtistaController {
         tableView.getSelectionModel().select(filaVacia);
     }
 
+    /**
+     * Método para eliminar la fila seleccionada del TableView y de la base de datos.
+     * Este método se llama desde el botón "Eliminar" en la interfaz gráfica.
+     */
     @FXML
     public void deleteRow() {
         // Pedimos confirmación con un Alert antes de continuar
@@ -186,6 +196,10 @@ public class ArtistaController {
         }
     }
 
+    /**
+     * Método para cargar los eventos en el VBox de detalles del artista.
+     * @param artista El artista seleccionado.
+     */
     @FXML
     private void cargarEventos(Artista artista) {
         eventosBox.getChildren().clear(); // Limpiar el VBox antes de cargar los eventos
@@ -207,6 +221,10 @@ public class ArtistaController {
         }
     }
 
+    /**
+     * Método para mostrar los detalles del artista seleccionado en el VBox de detalles.
+     * Este método se llama desde el botón "Ver Detalles" en la interfaz gráfica.
+     */
     @FXML
     private void verArtista() {
         Artista seleccionado = (Artista) tableView.getSelectionModel().getSelectedItem();
@@ -222,6 +240,10 @@ public class ArtistaController {
         }
     }
 
+    /**
+     * Método para cerrar el VBox de detalles del artista.
+     * Este método se llama desde el botón "Cerrar" en el VBox de detalles.
+     */
     @FXML
     private void cerrarDetalles() {
         Artista artista = (Artista) tableView.getSelectionModel().getSelectedItem();
@@ -244,7 +266,11 @@ public class ArtistaController {
         detailsBox.setManaged(false);
     }
 
-
+    /**
+     * Método para buscar artistas por nombre en el campo de búsqueda.
+     * Este método se llama desde el campo de texto de búsqueda en la interfaz gráfica.
+     * @throws IOException
+     */
     @FXML
     public void Busqueda() throws IOException {
         String busqueda = Busqueda.getText();
@@ -258,6 +284,10 @@ public class ArtistaController {
         
     }
 
+    /**
+     * Método para exportar el artista seleccionado a un archivo de texto.
+     * Este método se llama desde el botón "Exportar" en la interfaz gráfica.
+     */
     @FXML
     public void exportar() {
         Artista seleccionado = (Artista) tableView.getSelectionModel().getSelectedItem();

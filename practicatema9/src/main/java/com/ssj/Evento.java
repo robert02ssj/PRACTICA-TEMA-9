@@ -11,6 +11,12 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
+/**
+ * Clase que representa un evento. Contiene información sobre el evento, como
+ * su nombre, descripción, lugar, fechas, categoría y número de participantes.
+ * También incluye métodos para interactuar con la base de datos y exportar
+ * información.
+ */
 public class Evento implements Exportable {
     private IntegerProperty id;
     private StringProperty nombre;
@@ -22,6 +28,18 @@ public class Evento implements Exportable {
     private StringProperty nombre_categoria;
     private IntegerProperty numeroParticipantes;
 
+    /**
+     * Constructor de la clase Evento.
+     * 
+     * @param id               Identificador único del evento.
+     * @param nombre           Nombre del evento.
+     * @param descripcion      Descripción del evento.
+     * @param lugar            Lugar donde se realizará el evento.
+     * @param fecha_inicio     Fecha de inicio del evento.
+     * @param fecha_fin        Fecha de finalización del evento.
+     * @param id_categoria     Identificador de la categoría del evento.
+     * @param nombre_categoria Nombre de la categoría del evento.
+     */
     public Evento(int id, String nombre, String descripcion, String lugar, String fecha_inicio,
             String fecha_fin, int id_categoria, String nombre_categoria) {
         this.id = new SimpleIntegerProperty(id);
@@ -36,66 +54,146 @@ public class Evento implements Exportable {
     }
     
 
+    /**
+     * Obtiene el identificador del evento.
+     * 
+     * @return El identificador del evento.
+     */
     public int getId() {
         return id.get();
     }
 
+    /**
+     * Establece el identificador del evento.
+     * 
+     * @param id El nuevo identificador del evento.
+     */
     public void setId(int id) {
         this.id.set(id);
     }
 
+    /**
+     * Obtiene el nombre del evento.
+     * 
+     * @return El nombre del evento.
+     */
     public String getNombre() {
         return nombre.get();
     }
 
+    /**
+     * Establece el nombre del evento.
+     * 
+     * @param nombre El nuevo nombre del evento.
+     */
     public void setNombre(String nombre) {
         this.nombre.set(nombre);
     }
 
+    /**
+     * Obtiene la descripción del evento.
+     * 
+     * @return La descripción del evento.
+     */
     public String getDescripcion() {
         return descripcion.get();
     }
 
+    /**
+     * Establece la descripción del evento.
+     * 
+     * @param descripcion La nueva descripción del evento.
+     */
     public void setDescripcion(String descripcion) {
         this.descripcion.set(descripcion);
     }
 
+    /**
+     * Obtiene el lugar del evento.
+     * 
+     * @return El lugar del evento.
+     */
     public String getLugar() {
         return lugar.get();
     }
 
+    /**
+     * Establece el lugar del evento.
+     * 
+     * @param lugar El nuevo lugar del evento.
+     */
     public void setLugar(String lugar) {
         this.lugar.set(lugar);
     }
 
+    /**
+     * Obtiene la fecha de inicio del evento.
+     * 
+     * @return La fecha de inicio del evento.
+     */
     public String getFecha_inicio() {
         return fecha_inicio.get();
     }
 
+    /**
+     * Establece la fecha de inicio del evento.
+     * 
+     * @param fecha_inicio La nueva fecha de inicio del evento.
+     */
     public void setFecha_inicio(String fecha_inicio) {
         this.fecha_inicio.set(fecha_inicio);
     }
 
+    /**
+     * Obtiene la fecha de finalización del evento.
+     * 
+     * @return La fecha de finalización del evento.
+     */
     public String getFecha_fin() {
         return fecha_fin.get();
     }
 
+    /**
+     * Establece la fecha de finalización del evento.
+     * 
+     * @param fecha_fin La nueva fecha de finalización del evento.
+     */
     public void setFecha_fin(String fecha_fin) {
         this.fecha_fin.set(fecha_fin);
     }
 
+    /**
+     * Obtiene el identificador de la categoría del evento.
+     * 
+     * @return El identificador de la categoría del evento.
+     */
     public int getId_categoria() {
         return id_categoria.get();
     }
 
+    /**
+     * Establece el identificador de la categoría del evento.
+     * 
+     * @param id_categoria El nuevo identificador de la categoría del evento.
+     */
     public void setId_categoria(int id_categoria) {
         this.id_categoria.set(id_categoria);
     }
 
+    /**
+     * Obtiene el nombre de la categoría del evento.
+     * 
+     * @return El nombre de la categoría del evento.
+     */
     public String getNombre_categoria() {
         return nombre_categoria.get();
     }
 
+    /**
+     * Establece el nombre de la categoría del evento.
+     * 
+     * @param nombre_categoria El nuevo nombre de la categoría del evento.
+     */
     public void setNombre_categoria(String nombre_categoria) {
         this.nombre_categoria.set(nombre_categoria);
         Connection con = ConexionBD.getConection();
@@ -113,20 +211,28 @@ public class Evento implements Exportable {
         }
     }
 
+    /**
+     * Obtiene el número de participantes del evento.
+     * 
+     * @return El número de participantes del evento.
+     */
     public int getNumeroParticipantes() {
         return numeroParticipantes.get();
     }
 
+    /**
+     * Establece el número de participantes del evento.
+     * 
+     * @param numeroParticipantes El nuevo número de participantes del evento.
+     */
     public void setNumeroParticipantes(int numeroParticipantes) {
         this.numeroParticipantes.set(numeroParticipantes);
     }
 
     /**
-     * Devolverá un array con todos los eventos de la BD o null si no hay ningún
-     * evento
+     * Obtiene todos los eventos de la base de datos y los añade a la lista proporcionada.
      * 
-     * @param
-     * @return el array de eventos o null si no hay eventos
+     * @param listaEventos Lista donde se añadirán los eventos obtenidos.
      */
     public static void getAll(ObservableList<Evento> listaEventos) {
 
@@ -149,10 +255,10 @@ public class Evento implements Exportable {
     }
 
     /**
-     * Devolverá un evento con el id del evento que buscamos o null si no existe
+     * Obtiene un evento por su identificador.
      * 
-     * @param id el id del evento buscado
-     * @return el id del evento o null si no existe
+     * @param id Identificador del evento buscado.
+     * @return El evento encontrado o null si no existe.
      */
     public Evento get(int id) {
         Connection con = ConexionBD.getConection();
@@ -177,25 +283,23 @@ public class Evento implements Exportable {
     }
 
     /**
-     * Buscará en la BD los eventos cuyo nombre o descripción contengan el texto
-     * "txt". Devolverá un array de eventos que cumplan la condición, o null si
-     * ninguno la cumple.
+     * Busca eventos en la base de datos cuyo nombre o descripción contengan el texto especificado.
      * 
-     * @param txt
-     * @return el array de eventos o null si no hay eventos
-     *
+     * @param txt          Texto a buscar en el nombre o descripción de los eventos.
+     * @param listaEventos Lista donde se añadirán los eventos encontrados.
      */
     public static void get(String txt, ObservableList<Evento> listaEventos) {
         Connection con = ConexionBD.getConection();
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(
-                    "SELECT * FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE EVENTO.nombre LIKE '%"
+                    "SELECT EVENTO.*, CATEGORIA.nombre AS categoria_nombre,(SELECT COUNT(*) FROM PARTICIPA WHERE PARTICIPA.id_evento = EVENTO.id) AS numero_participantes FROM EVENTO INNER JOIN CATEGORIA ON EVENTO.id_categoria = CATEGORIA.id WHERE EVENTO.nombre LIKE '%"
                             + txt + "%' OR EVENTO.descripcion LIKE '%" + txt + "%'");
             while (rs.next()) {
                 Evento e = new Evento(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"),
                         rs.getString("lugar"), rs.getString("fecha_inicio"), rs.getString("fecha_fin"),
-                        rs.getInt("id_categoria"), rs.getString("CATEGORIA.nombre"));
+                        rs.getInt("id_categoria"), rs.getString("categoria_nombre"));
+                e.setNumeroParticipantes(rs.getInt("numero_participantes"));
                 listaEventos.add(e);
             }
             con.close();
@@ -205,11 +309,9 @@ public class Evento implements Exportable {
     }
 
     /**
-     * Devolverá el último ID asignado en la tabla de Evento o 0 si la
-     * tabla está vacía.
+     * Obtiene el último ID asignado en la tabla de eventos.
      * 
-     * @return el último ID asignado en la tabla de Evento o 0 si la tabla está
-     *         vacía.
+     * @return El último ID asignado o 0 si la tabla está vacía.
      */
     public static int getLastId() {
         Connection con = ConexionBD.getConection();
@@ -230,14 +332,10 @@ public class Evento implements Exportable {
     }
 
     /**
-     * Almacenará en la BD el evento actual como un evento nuevo (si aun no
-     * existía) o modificando un evento existente (si ya existía). Devolverá 0 si no
-     * se ha podido almacenar nada o 1 si se ha almacenado correctamente un
-     * registro.
+     * Guarda el evento actual en la base de datos. Si el evento ya existe, lo actualiza;
+     * de lo contrario, lo inserta como un nuevo registro.
      * 
-     * @return 0 si no se ha podido almacenar nada o 1 si se ha almacenado
-     *         correctamente un registro.
-     * 
+     * @return 1 si se guardó correctamente, 0 en caso contrario.
      */
     public int save() {
         int resultado = 0;
@@ -272,10 +370,9 @@ public class Evento implements Exportable {
     }
 
     /**
-     * Eliminará de la BD el evento actual. Devolverá 0 si no se ha borrado
-     * nada o 1 si se ha borrado el evento.
+     * Elimina el evento actual de la base de datos.
      * 
-     * @return 0 si no se ha borrado nada o 1 si se ha borrado el evento.
+     * @return 1 si se eliminó correctamente, 0 en caso contrario.
      */
     public int delete() {
         int resultado = 0;
@@ -299,16 +396,21 @@ public class Evento implements Exportable {
     }
 
     /**
-     * Devolverá la categoría a la que pertenece el evento.
+     * Obtiene la categoría a la que pertenece el evento.
      * 
-     * @return la categoría a la que pertenece el evento.
-     * 
+     * @return La categoría del evento.
      */
     public Categoria getCategoria() {
         Categoria c = Categoria.get(getId_categoria());
         return c;
     }
 
+    /**
+     * Obtiene un evento por su nombre.
+     * 
+     * @param nombre Nombre del evento buscado.
+     * @return El evento encontrado o null si no existe.
+     */
     public static Evento getByName(String nombre) {
         Connection con = ConexionBD.getConection();
         Evento evento = null;
@@ -330,9 +432,10 @@ public class Evento implements Exportable {
     }
 
     /**
-     * Exportará la lista de los eventos que se han desarrollado, detallando para
-     * cada uno los artistas y el público asistente.
+     * Exporta la lista de eventos a un archivo de texto, incluyendo detalles como
+     * nombre, descripción, lugar, fechas, categoría y número de participantes.
      * 
+     * @param listaEventos Lista de eventos a exportar.
      */
     @Override
     public void exportToText(ObservableList<?> listaEventos) {
@@ -361,6 +464,10 @@ public class Evento implements Exportable {
         }
     
 
+    /**
+     * Exporta la lista de eventos a un archivo PDF.
+     * (Método aún no implementado).
+     */
     @Override
     public void exportToPDF() {
 
